@@ -13,8 +13,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -27,10 +34,11 @@ import com.example.charigochi.R
 fun TamagochiScreen() {
     val context = LocalContext.current
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
                 Toast.makeText(context, "добавьте карту", Toast.LENGTH_SHORT).show()
@@ -40,22 +48,17 @@ fun TamagochiScreen() {
                 .padding(horizontal = 50.dp)
                 .height(70.dp)
         ) {
-            Text(text = "Оформить пожертование", fontSize = 18.sp )
-
+            Text(text = "Оформить пожертование", fontSize = 18.sp)
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
 
-        Box(
-            modifier = Modifier.weight(1f)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.koshka),
-                contentDescription = null,
-                modifier = Modifier.size(500.dp),
-                contentScale = ContentScale.FillBounds
-            )
-        }
+        Image(
+            painter = painterResource(id = R.drawable.koshka),
+            contentDescription = null,
+            modifier = Modifier.size(500.dp),
+            contentScale = ContentScale.FillBounds
+        )
+
 
         Row(
             modifier = Modifier.fillMaxWidth(),
