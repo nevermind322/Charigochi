@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import java.util.Date
 
-@Entity
+@Entity(tableName = "cats")
 class CatEntity (
     @PrimaryKey val id : Int,
     @ColumnInfo(name = "hunger") val hunger : Int,
