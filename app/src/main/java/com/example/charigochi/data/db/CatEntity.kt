@@ -6,10 +6,10 @@ import androidx.room.TypeConverter
 import java.util.Date
 
 @Entity(tableName = "cats")
-class CatEntity (
+data class CatEntity (
     @PrimaryKey val id : Int,
-    @ColumnInfo(name = "hunger") val hunger : Int,
-    val lastHungerUpdate : Date
+    val bellyful : Int,
+    val lastBellyfulUpdate : Date
     )
 
 class Converters {
