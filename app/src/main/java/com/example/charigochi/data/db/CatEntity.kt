@@ -9,7 +9,9 @@ import java.util.Date
 data class CatEntity (
     @PrimaryKey val id : Int,
     val bellyful : Int,
-    val lastBellyfulUpdate : Date
+    val lastBellyfulUpdate : Date,
+    val happiness : Int,
+    val happinessLastUpdate : Date
     )
 
 class Converters {
