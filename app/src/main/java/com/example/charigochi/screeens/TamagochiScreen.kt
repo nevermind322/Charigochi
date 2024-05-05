@@ -1,5 +1,6 @@
 package com.example.charigochi.screeens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -46,9 +47,10 @@ fun TamagochiScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp)
-                .height(70.dp)
+                .height(70.dp)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
         ) {
-            Text(text = "Оформить пожертование", fontSize = 18.sp)
+            Text(text = "Оформить пожертование", fontSize = 18.sp, maxLines = 1)
         }
 
 
@@ -67,6 +69,7 @@ fun TamagochiScreen() {
             Button(
                 onClick = {
                     Toast.makeText(context, "Hello from Bottom Button 1", Toast.LENGTH_SHORT).show()
+                    Log.d("hi", "bottom button 1 clicked")
                 },
                 modifier = Modifier.height(80.dp)
             ) {
