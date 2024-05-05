@@ -4,7 +4,7 @@ import com.example.charigochi.data.db.CatEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class CatRepo(private val catDbDatasource: CatDbDatasource) {
+class CatRepo(private val catDbDatasource: CatDbDatasource  ) {
 
     suspend fun getAll() = catDbDatasource.getAll()
 
