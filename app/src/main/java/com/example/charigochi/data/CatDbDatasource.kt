@@ -4,8 +4,9 @@ import com.example.charigochi.data.db.CatDAO
 import com.example.charigochi.data.db.CatEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CatDbDatasource(private val catDAO: CatDAO) {
+class CatDbDatasource @Inject constructor(private val catDAO: CatDAO) {
 
     suspend fun getAll() = withContext(Dispatchers.IO) { catDAO.getAll() }
 

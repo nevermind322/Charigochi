@@ -4,10 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.db.CatEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class TamagochiScreenViewModel(val catRepo: CatRepo) : ViewModel() {
+@HiltViewModel
+class TamagochiScreenViewModel @Inject constructor(val catRepo: CatRepo) : ViewModel() {
     fun feed(cat: CatEntity) {
         viewModelScope.launch {
             val newCat = cat.copy(
