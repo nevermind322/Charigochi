@@ -6,34 +6,15 @@ import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.db.CatEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.Duration
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(private val catRepo: CatRepo) : ViewModel() {
+class AppViewModel @Inject constructor(private val catRepo: CatRepo) : ViewModel() {
 
     val state = MutableStateFlow<AppUiState>(AppUiState.Loading)
-
-    fun getCats() {
-        viewModelScope.launch {
-            val res = try {
-                val res = catRepo.getAll()
-                if (res.isEmpty()) {
-                    updateCats()
-                    val res2 = catRepo.getAll()
-                    AppUiState.Success(res2)
-                } else
-                    AppUiState.Success(res)
-            } catch (e: Exception) {
-                AppUiState.Error(e)
-            }
-            state.value = res
-        }
-    }
 
     fun updateCats() {
         viewModelScope.launch {
