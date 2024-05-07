@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -35,12 +36,12 @@ import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
-fun TamagochiScreen(cat: CatEntity, vm : TamagochiScreenViewModel) {
+fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 16.dp),
+            .padding(vertical = 16.dp, horizontal = 8.dp),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Button(
@@ -64,7 +65,17 @@ fun TamagochiScreen(cat: CatEntity, vm : TamagochiScreenViewModel) {
             contentScale = ContentScale.FillBounds
         )
 
-        LinearProgressIndicator(progress = cat.happiness.toFloat()/100)
+        LinearProgressIndicator(
+            progress = { cat.happiness.toFloat() / 100 },
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.Red
+        )
+
+        LinearProgressIndicator(
+            progress = { cat.bellyful.toFloat() / 100 },
+            modifier = Modifier.fillMaxWidth(),
+        )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
