@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.screeens.MainScreen
 import com.example.charigochi.screeens.TamagochiScreen
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.vm.AppUiState
@@ -41,7 +42,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CharigochiApp(appViewModel)
+                    //CharigochiApp(appViewModel)
+                    MainScreen()
                 }
             }
         }
