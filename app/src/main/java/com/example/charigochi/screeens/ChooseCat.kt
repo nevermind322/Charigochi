@@ -1,5 +1,7 @@
 package com.example.charigochi.screeens
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.expandVertically
@@ -9,6 +11,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.charigochi.R
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.ui.theme.Green80
@@ -49,7 +53,7 @@ import com.example.charigochi.ui.theme.Yellow20
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
-fun MainScreen() {
+fun ChooseCat(cats: List<CatEntity>) {
     val context = LocalContext.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -67,81 +71,46 @@ fun MainScreen() {
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = "До разблокировки нового котика:",
+                    text = "Выберите котика:",
                     style = Typography.titleLarge.copy(color = Pink80),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(vertical = 30.dp),
                     textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "Any дней",
-                    style = Typography.bodyLarge.copy(color = Pink80),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    textAlign = TextAlign.Center
-                )
-                val imageModifier = Modifier
-                    .width(330.dp)
-                    .height(330.dp)
-                val image: Painter = painterResource(id = R.drawable.logo)
-
-                Image(
-                    painter = image,
-                    contentDescription = null,
-                    modifier = imageModifier.align(Alignment.CenterHorizontally)
-                        .padding(vertical = 12.dp)
-
                 )
 
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "ИГРАТЬ", style = Typography.titleLarge)
-                    }
+                    for (cat in cats)
+                        CatCard(cat = cat)
 
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(200.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
 
-                    ) {
-                        Text(text = "Настройки", style = Typography.titleLarge)
-                    }
-
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 3", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(200.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Об авторах", style = Typography.titleLarge)
-                    }
                 }
-
             }
         }
+    }
+}
+@Composable
+fun CatCard(cat: CatEntity) {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            //val url = "https://www.example.com" // ваша ссылка здесь
+            //val intent = Intent(Intent.ACTION_VIEW)
+            //intent.data = Uri.parse(url)
+            //startActivity(intent)
+        },
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .width(300.dp)
+            .height(80.dp)
+            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+    ) {
+        //Text(text = "Фонд $fond", style = Typography.titleLarge)
     }
 }

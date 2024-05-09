@@ -1,5 +1,7 @@
 package com.example.charigochi.screeens
 
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.expandVertically
@@ -40,6 +42,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import com.example.charigochi.R
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.ui.theme.Green80
@@ -50,7 +53,7 @@ import com.example.charigochi.ui.theme.Yellow20
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
-fun Donate() {
+fun Donate(fonds: List<String>) {
     val context = LocalContext.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -68,7 +71,7 @@ fun Donate() {
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = "Выберите организацию до пожертвования:",
+                    text = "Выберите организацию для пожертвования:",
                     style = Typography.titleLarge.copy(color = Pink80),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -77,73 +80,38 @@ fun Donate() {
                 )
 
                 Column(
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Фонд 1", style = Typography.titleLarge)
-                    }
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Фонд 2", style = Typography.titleLarge)
-                    }
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Фонд 3", style = Typography.titleLarge)
-                    }
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Фонд 4", style = Typography.titleLarge)
-                    }
-                    Button(
-                        onClick = {
-                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
-                        },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .width(300.dp)
-                            .height(80.dp)
-                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-                    ) {
-                        Text(text = "Фонд 5", style = Typography.titleLarge)
-                    }
-                }
+                    for (fond in fonds)
+                        FondButton(fond = fond)
 
+
+                }
             }
         }
+    }
+}
+
+@Composable
+fun FondButton(fond: String) {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            //val url = "https://www.example.com" // ваша ссылка здесь
+            //val intent = Intent(Intent.ACTION_VIEW)
+            //intent.data = Uri.parse(url)
+            //startActivity(intent)
+        },
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .width(300.dp)
+            .height(80.dp)
+            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+    ) {
+        Text(text = "Фонд $fond", style = Typography.titleLarge)
     }
 }
