@@ -16,7 +16,7 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
+        fontSize = 22.sp,
         lineHeight = 26.sp,
         letterSpacing = 0.5.sp
     ),

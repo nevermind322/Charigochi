@@ -16,14 +16,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MainScreen
 import com.example.charigochi.screeens.TamagochiScreen
+import com.example.charigochi.ui.theme.BackgroundImage
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.vm.AppUiState
 import com.example.charigochi.vm.AppViewModel
@@ -37,13 +40,13 @@ class MainActivity : ComponentActivity() {
         val appViewModel by viewModels<AppViewModel>()
         setContent {
             CharigochiTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                BackgroundImage(
+                    imagePainter = painterResource(id = R.drawable.background) // Замените на ваш ресурс изображения
                 ) {
                     //CharigochiApp(appViewModel)
-                    MainScreen()
+                    //MainScreen()
+                    Donate()
+
                 }
             }
         }

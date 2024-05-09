@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,7 +50,7 @@ import com.example.charigochi.ui.theme.Yellow20
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
-fun MainScreen() {
+fun Donate() {
     val context = LocalContext.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -67,36 +68,16 @@ fun MainScreen() {
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = "До разблокировки нового котика:",
+                    text = "Выберите организацию до пожертвования:",
                     style = Typography.titleLarge.copy(color = Pink80),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(8.dp),
+                        .padding(vertical = 30.dp),
                     textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "Any дней",
-                    style = Typography.bodyLarge.copy(color = Pink80),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    textAlign = TextAlign.Center
-                )
-                val imageModifier = Modifier
-                    .width(330.dp)
-                    .height(330.dp)
-                val image: Painter = painterResource(id = R.drawable.logo)
-
-                Image(
-                    painter = image,
-                    contentDescription = null,
-                    modifier = imageModifier.align(Alignment.CenterHorizontally)
-                        .padding(vertical = 12.dp)
-
                 )
 
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -110,34 +91,55 @@ fun MainScreen() {
                             .height(80.dp)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
                     ) {
-                        Text(text = "ИГРАТЬ", style = Typography.titleLarge)
+                        Text(text = "Фонд 1", style = Typography.titleLarge)
                     }
-
                     Button(
                         onClick = {
-                            Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
                         },
                         modifier = Modifier
                             .padding(vertical = 8.dp)
-                            .width(200.dp)
+                            .width(300.dp)
                             .height(80.dp)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-
                     ) {
-                        Text(text = "Настройки", style = Typography.titleLarge)
+                        Text(text = "Фонд 2", style = Typography.titleLarge)
                     }
-
                     Button(
                         onClick = {
-                            Toast.makeText(context, "Кнопка 3", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
                         },
                         modifier = Modifier
                             .padding(vertical = 8.dp)
-                            .width(200.dp)
+                            .width(300.dp)
                             .height(80.dp)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
                     ) {
-                        Text(text = "Об авторах", style = Typography.titleLarge)
+                        Text(text = "Фонд 3", style = Typography.titleLarge)
+                    }
+                    Button(
+                        onClick = {
+                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .width(300.dp)
+                            .height(80.dp)
+                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+                    ) {
+                        Text(text = "Фонд 4", style = Typography.titleLarge)
+                    }
+                    Button(
+                        onClick = {
+                            Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                            .width(300.dp)
+                            .height(80.dp)
+                            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+                    ) {
+                        Text(text = "Фонд 5", style = Typography.titleLarge)
                     }
                 }
 
