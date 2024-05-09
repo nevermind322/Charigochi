@@ -52,65 +52,84 @@ import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.ui.theme.Yellow20
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
-@Composable
-fun ChooseCat(cats: List<CatEntity>) {
-    val context = LocalContext.current
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        // Фоновый цвет
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Yellow20
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 50.dp, horizontal = 8.dp),
-                verticalArrangement = Arrangement.Top
-            ) {
-                Text(
-                    text = "Выберите котика:",
-                    style = Typography.titleLarge.copy(color = Pink80),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 30.dp),
-                    textAlign = TextAlign.Center
-                )
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    for (cat in cats)
-                        CatCard(cat = cat)
-
-
-                }
-            }
-        }
-    }
-}
-@Composable
-fun CatCard(cat: CatEntity) {
-    val context = LocalContext.current
-    Button(
-        onClick = {
-            //val url = "https://www.example.com" // ваша ссылка здесь
-            //val intent = Intent(Intent.ACTION_VIEW)
-            //intent.data = Uri.parse(url)
-            //startActivity(intent)
-        },
-        modifier = Modifier
-            .padding(vertical = 8.dp)
-            .width(300.dp)
-            .height(80.dp)
-            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-    ) {
-        //Text(text = "Фонд $fond", style = Typography.titleLarge)
-    }
-}
+//@Composable
+//fun ChooseCat(cats: List<CatEntity>) {
+//    val context = LocalContext.current
+//    Box(
+//        modifier = Modifier.fillMaxSize(),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        // Фоновый цвет
+//        Surface(
+//            modifier = Modifier.fillMaxSize(),
+//            color = Yellow20
+//        ) {
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(vertical = 50.dp, horizontal = 8.dp),
+//                verticalArrangement = Arrangement.Top
+//            ) {
+//                Text(
+//                    text = "Выберите котика:",
+//                    style = Typography.titleLarge.copy(color = Pink80),
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(vertical = 30.dp),
+//                    textAlign = TextAlign.Center
+//                )
+//
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .fillMaxHeight(),
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    for (cat in cats)
+//                        CatCard(cat = cat)
+//
+//
+//                }
+//            }
+//        }
+//    }
+//}
+//@Composable
+//fun CatCard(cat: CatEntity) {
+//    val context = LocalContext.current
+//    Button(
+//        onClick = {
+//            // Действие при нажатии на карточку котика
+//            Toast.makeText(context, "Выбран котик: ${cat.id}", Toast.LENGTH_SHORT).show()
+//        },
+//        modifier = Modifier
+//            .padding(vertical = 8.dp)
+//            .width(300.dp)
+//            .height(200.dp) // Высота карточки котика
+//            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+//    ) {
+//        // Содержимое карточки котика
+//        Column(
+//            modifier = Modifier.padding(16.dp)
+//        ) {
+//            // Изображение котика
+//            Image(
+//                //painter = painterResource(id = cat.imageResId),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .size(120.dp) // Размер изображения котика
+//                    .align(Alignment.CenterHorizontally), // Выравнивание изображения по центру
+//                contentScale = ContentScale.FillBounds // Масштабирование изображения
+//            )
+//            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
+//            // Имя котика
+//            Text(
+//                text = cat.name,
+//                style = Typography.titleLarge,
+//                textAlign = TextAlign.Center,
+//                modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
+//            )
+//        }
+//    }
+//}
