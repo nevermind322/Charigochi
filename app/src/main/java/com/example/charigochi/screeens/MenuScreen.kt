@@ -29,7 +29,7 @@ import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.ui.theme.Yellow20
 
 @Composable
-fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit) {
+fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit, onAboutUsClick: () -> Unit) {
     val context = LocalContext.current
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -109,7 +109,7 @@ fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit) {
 
                     Button(
                         onClick = {
-                            Toast.makeText(context, "Кнопка 3", Toast.LENGTH_SHORT).show()
+                            onAboutUsClick()
                         },
                         modifier = Modifier
                             .padding(vertical = 8.dp)

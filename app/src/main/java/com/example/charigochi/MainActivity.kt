@@ -23,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.screeens.AboutUs
 import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
@@ -96,7 +97,8 @@ fun MainNavHost() {
 
         composable(route = MENU_SCREEN_ROUTE) {
             MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE)},
-                onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) })
+                onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
+                onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) })
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
@@ -109,7 +111,7 @@ fun MainNavHost() {
         }
 
         composable(route = ABOUT_AUTHORS_SCREEN_ROUTE) {
-
+            AboutUs()
         }
 
         composable(
