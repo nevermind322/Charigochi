@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.charigochi.R
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.ui.theme.Green80
+import com.example.charigochi.ui.theme.Pink80
+import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
@@ -48,6 +51,7 @@ fun MainScreen() {
     ) {
         Text(
             text = "До разблокировки нового котика:",
+            style = Typography.titleLarge.copy(color = Pink80),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -55,6 +59,7 @@ fun MainScreen() {
         )
         Text(
             text = "Any дней",
+            style = Typography.bodyLarge.copy(color = Pink80),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -84,7 +89,7 @@ fun MainScreen() {
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                Text(text = "ИГРАТЬ")
+                Text(text = "ИГРАТЬ",  style = Typography.titleLarge)
             }
 
             Button(
@@ -96,7 +101,7 @@ fun MainScreen() {
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                Text(text = "Настройки")
+                Text(text = "Настройки", style = Typography.titleLarge,)
             }
 
             Button(
@@ -108,7 +113,7 @@ fun MainScreen() {
                     .fillMaxWidth()
                     .height(80.dp)
             ) {
-                Text(text = "ОБ авторах")
+                Text(text = "ОБ авторах", style = Typography.titleLarge,)
             }
         }
     }

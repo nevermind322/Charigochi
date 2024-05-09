@@ -2,10 +2,16 @@ package com.example.charigochi.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val Yellow20 = Color(0xFFFFFEF2)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val Grey40 = Color(0xFFccd0dc)
+val Blue40 = Color(0xFFb0d0db)
+val Yellow40 = Color(0xFFfdf8d2)
+val Pink40 = Color(0xFFffbeb8)
+
+val Green80 = Color(0xFF126f6f)
+
+val Grey80 = Color(0xFFa9adba)
+val Blue80 = Color(0xFF85a0a9)
+val Yellow80 = Color(0xFFe5dfb5)
+val Pink80 = Color(0xFFb5756f)
