@@ -77,7 +77,7 @@ fun CharigochiTheme(
         else -> LightColorScheme
     }
 
-    val backgroundImagePainter = painterResource(id = R.drawable.background) // Замените на ваш ресурс изображения
+    val backgroundImagePainter = painterResource(id = R.drawable.background_light) // Замените на ваш ресурс изображения
 
     MaterialTheme(
         colorScheme = colorScheme,

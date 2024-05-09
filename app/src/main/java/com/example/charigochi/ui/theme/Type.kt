@@ -16,22 +16,22 @@ val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 26.sp,
+        fontSize = 28.sp,
+        lineHeight = 30.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 28.sp,
-        lineHeight = 30.sp,
+        fontSize = 30.sp,
+        lineHeight = 32.sp,
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 16.sp,
+        fontSize = 16.sp,
+        lineHeight = 18.sp,
         letterSpacing = 0.5.sp
     )
 
