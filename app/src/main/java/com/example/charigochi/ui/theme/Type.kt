@@ -23,14 +23,14 @@ val Typography = Typography(
     titleLarge = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 26.sp,
+        fontSize = 28.sp,
         lineHeight = 30.sp,
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
         fontFamily = vividSansFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
+        fontSize = 14.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )
