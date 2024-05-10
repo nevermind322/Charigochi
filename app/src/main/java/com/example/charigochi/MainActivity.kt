@@ -1,28 +1,17 @@
 package com.example.charigochi
 
-import android.health.connect.datatypes.AppInfo
+import android.content.Context
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -30,16 +19,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.screeens.AboutUs
-import com.example.charigochi.screeens.Donate
-import com.example.charigochi.screeens.MenuScreen
+import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.MenuScreen
 import com.example.charigochi.screeens.Settings
-import com.example.charigochi.screeens.TamagochiScreen
-import com.example.charigochi.ui.theme.BackgroundImage
+import com.example.charigochi.screeens.SomethingWentWrong
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.vm.AppUiState
 import com.example.charigochi.vm.AppViewModel
-import com.example.charigochi.vm.TamagochiScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -59,13 +45,17 @@ class MainActivity : ComponentActivity() {
 
 }
 
+
+val Context.dataStore by preferencesDataStore(name = "settings")
+
+
 @Composable
 fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
 
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        vm.updateCats()
+        vm.init()
     }
 
     when (state) {
@@ -76,7 +66,7 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
 
         is AppUiState.Error -> {
             // Экран "что-то пошло не так", я его напишу, но нужна картинка грустного котика
-            CircularProgressIndicator(color = Color.Red)
+            SomethingWentWrong(onRetry = { vm.init() })
         }
 
         is AppUiState.Success -> {
@@ -107,7 +97,7 @@ fun MainNavHost(cats: List<CatEntity>) {
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
-            //ChooseCat(cats = listOf())
+            ChooseCat(cats = cats)
 
         }
 

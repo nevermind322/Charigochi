@@ -1,25 +1,25 @@
 package com.example.charigochi.vm
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.UpdateAndGetCatsUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.Date
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class AppViewModel @Inject constructor(private val usecase: UpdateAndGetCatsUsecase) : ViewModel() {
 
     val state = MutableStateFlow<AppUiState>(AppUiState.Loading)
+    private var initJob: Job? = null
 
-    fun updateCats() {
-        viewModelScope.launch {
+    fun init() {
+        initJob = viewModelScope.launch {
             state.value = try {
                 val cats = usecase()
                 AppUiState.Success(cats)

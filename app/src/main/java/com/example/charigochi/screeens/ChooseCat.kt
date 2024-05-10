@@ -1,6 +1,8 @@
 package com.example.charigochi.screeens
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
@@ -35,6 +37,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.DefaultAlpha
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -45,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.charigochi.R
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.data.db.imageRes
 import com.example.charigochi.ui.theme.Green80
 import com.example.charigochi.ui.theme.Grey40
 import com.example.charigochi.ui.theme.Pink80
@@ -54,82 +59,75 @@ import com.example.charigochi.vm.TamagochiScreenViewModel
 
 @Composable
 fun ChooseCat(cats: List<CatEntity>) {
-//    val context = LocalContext.current
-//    Box(
-//        modifier = Modifier.fillMaxSize(),
-//        contentAlignment = Alignment.Center
-//    ) {
-//        // Фоновый цвет
-//        Surface(
-//            modifier = Modifier.fillMaxSize(),
-//            color = Yellow20
-//        ) {
-//            Column(
-//                modifier = Modifier
-//                    .fillMaxSize()
-//                    .padding(vertical = 50.dp, horizontal = 8.dp),
-//                verticalArrangement = Arrangement.Top
-//            ) {
-//                Text(
-//                    text = "Выберите котика:",
-//                    style = Typography.titleLarge.copy(color = Pink80),
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(vertical = 30.dp),
-//                    textAlign = TextAlign.Center
-//                )
-//
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .fillMaxHeight(),
-//                    verticalArrangement = Arrangement.Center,
-//                    horizontalAlignment = Alignment.CenterHorizontally
-//                ) {
-//                    for (cat in cats)
-//                        CatCard(cat = cat)
-//
-//
-//                }
-//            }
-//        }
-//    }
+    val context = LocalContext.current
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        // Фоновый цвет
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = Yellow20
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 50.dp, horizontal = 8.dp),
+                verticalArrangement = Arrangement.Top
+            ) {
+                Text(
+                    text = "Выберите котика:",
+                    style = Typography.titleLarge.copy(color = Pink80),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 30.dp),
+                    textAlign = TextAlign.Center
+                )
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    for (cat in cats)
+                        CatCard(cat = cat)
+
+
+                }
+            }
+        }
+    }
 }
-//@Composable
-//fun CatCard(cat: CatEntity) {
-//    val context = LocalContext.current
-//    Button(
-//        onClick = {
-//            // Действие при нажатии на карточку котика
-//            Toast.makeText(context, "Выбран котик: ${cat.id}", Toast.LENGTH_SHORT).show()
-//        },
-//        modifier = Modifier
-//            .padding(vertical = 8.dp)
-//            .width(300.dp)
-//            .height(200.dp) // Высота карточки котика
-//            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-//    ) {
-//        // Содержимое карточки котика
-//        Column(
-//            modifier = Modifier.padding(16.dp)
-//        ) {
-//            // Изображение котика
-//            Image(
-//                //painter = painterResource(id = cat.imageResId),
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .size(120.dp) // Размер изображения котика
-//                    .align(Alignment.CenterHorizontally), // Выравнивание изображения по центру
-//                contentScale = ContentScale.FillBounds // Масштабирование изображения
-//            )
-//            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
-//            // Имя котика
-//            Text(
-//                text = cat.name,
-//                style = Typography.titleLarge,
-//                textAlign = TextAlign.Center,
-//                modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
-//            )
-//        }
-//    }
-//}
+
+@Composable
+fun CatCard(cat: CatEntity) {
+    val context = LocalContext.current
+    Button(
+        onClick = {
+            // Действие при нажатии на карточку котика
+            Toast.makeText(context, "Выбран котик: ${cat.id}", Toast.LENGTH_SHORT).show()
+        },
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .width(300.dp)
+            .height(200.dp) // Высота карточки котика
+            .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+    ) {
+        // Содержимое карточки котика
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
+            // Имя котика
+            Text(
+                text = cat.name,
+                style = Typography.titleLarge,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
+            )
+            Image(painter = painterResource(id = cat.imageRes), contentDescription =null)
+        }
+    }
+}
