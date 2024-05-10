@@ -1,8 +1,6 @@
 package com.example.charigochi.data
 
 import com.example.charigochi.data.db.CatEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CatRepo @Inject constructor(private val catDbDatasource: CatDbDatasource) {

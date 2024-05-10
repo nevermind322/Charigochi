@@ -1,6 +1,5 @@
 package com.example.charigochi.data.db
 
-import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter

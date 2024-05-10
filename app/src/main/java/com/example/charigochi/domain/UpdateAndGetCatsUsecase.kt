@@ -4,7 +4,6 @@ import android.util.Log
 import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
-import kotlinx.coroutines.withContext
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

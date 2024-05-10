@@ -6,11 +6,9 @@ import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.UpdateAndGetCatsUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class AppViewModel @Inject constructor(private val usecase: UpdateAndGetCatsUsecase) : ViewModel() {
