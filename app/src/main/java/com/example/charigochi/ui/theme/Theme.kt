@@ -15,6 +15,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
@@ -33,6 +34,7 @@ private val LightColorScheme = lightColorScheme(
     primary = Pink40,
     secondary = Yellow40,
     tertiary = Blue40,
+    onSurface = Color(0xFF1C1B1F),
     /* Other default colors to override
 
     surface = Color(0xFFFFFBFE),

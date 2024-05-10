@@ -52,8 +52,8 @@ import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.ui.theme.Yellow20
 import com.example.charigochi.vm.TamagochiScreenViewModel
 
-//@Composable
-//fun ChooseCat(cats: List<CatEntity>) {
+@Composable
+fun ChooseCat(cats: List<CatEntity>) {
 //    val context = LocalContext.current
 //    Box(
 //        modifier = Modifier.fillMaxSize(),
@@ -94,7 +94,7 @@ import com.example.charigochi.vm.TamagochiScreenViewModel
 //            }
 //        }
 //    }
-//}
+}
 //@Composable
 //fun CatCard(cat: CatEntity) {
 //    val context = LocalContext.current
