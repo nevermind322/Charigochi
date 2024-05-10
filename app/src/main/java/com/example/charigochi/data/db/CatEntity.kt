@@ -1,8 +1,10 @@
 package com.example.charigochi.data.db
 
+import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
+import com.example.charigochi.R
 import java.util.Date
 
 @Entity(tableName = "cats")
@@ -17,9 +19,6 @@ data class CatEntity(
     val deaths: Int
 )
 
-val CatEntity.imageName: String
-    get() = "cat$id.jpg"
-
 class Converters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
@@ -31,6 +30,19 @@ class Converters {
         return date?.time
     }
 }
+
+
+// TODO: поменять кошьку на картинки, когда они будут
+val CatEntity.imageRes: Int
+    get() = when (id) {
+        0 -> R.drawable.koshka
+        1 -> R.drawable.koshka
+        2 -> R.drawable.leopold
+        3 -> R.drawable.koshka
+        4 -> R.drawable.koshka
+        5 -> R.drawable.silvestr
+        else -> R.drawable.koshka
+    }
 
 val CATS_INIT = listOf(
     CatEntity(0, "Гав", 100, null, 100, null, true, 0),
