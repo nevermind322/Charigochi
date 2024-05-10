@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 
 @Dao
 interface CatDAO {
@@ -16,4 +17,7 @@ interface CatDAO {
 
     @Query("SELECT * FROM cats")
     suspend fun getAll(): List<CatEntity>
+
+    @Upsert
+    suspend fun upsertCats(vararg cats: CatEntity)
 }

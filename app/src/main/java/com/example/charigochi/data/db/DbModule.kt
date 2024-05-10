@@ -15,7 +15,9 @@ object DbModule {
     @Provides
     @Singleton
     fun getDb( @ApplicationContext context: Context) : CharigochiDb {
-        return Room.databaseBuilder(context, CharigochiDb::class.java, "db").build()
+        return Room.databaseBuilder(context, CharigochiDb::class.java, "cats.db")
+             //.createFromAsset("cats.db")
+            .build()
     }
 
     @Provides

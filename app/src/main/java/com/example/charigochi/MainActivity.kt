@@ -2,6 +2,7 @@ package com.example.charigochi
 
 import android.health.connect.datatypes.AppInfo
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -16,7 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,7 +30,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.screeens.AboutUs
-import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
 import com.example.charigochi.screeens.MenuScreen
@@ -41,10 +46,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val appViewModel by viewModels<AppViewModel>()
         setContent {
             CharigochiTheme {
-                CharigochiApp(appViewModel)
+                CharigochiApp()
                 //MainScreen()
                 //Donate()
                 //Settings()
@@ -56,29 +60,30 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CharigochiApp(vm: AppViewModel) {
+fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
+
+    val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {
         vm.updateCats()
     }
 
-    val state by vm.state.collectAsState()
-
-    /*when (state) {
+    when (state) {
         AppUiState.Loading -> {
             // Экран загрузки
+            CircularProgressIndicator(color = Color.Cyan)
         }
 
         is AppUiState.Error -> {
             // Экран "что-то пошло не так", я его напишу, но нужна картинка грустного котика
-            CircularProgressIndicator()
+            CircularProgressIndicator(color = Color.Red)
         }
 
         is AppUiState.Success -> {
-            MainNavHost()
+            MainNavHost((state as AppUiState.Success).cats)
         }
-    }*/
-    MainNavHost()
+    }
+
 }
 
 const val MENU_SCREEN_ROUTE = "menu"
@@ -91,18 +96,18 @@ const val DONATE_SCREEN_ROUTE = "donate"
 
 
 @Composable
-fun MainNavHost() {
+fun MainNavHost(cats: List<CatEntity>) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
 
         composable(route = MENU_SCREEN_ROUTE) {
-            MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE)},
+            MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
                 onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
                 onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) })
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
-            ChooseCat(cats = listOf())
+            //ChooseCat(cats = listOf())
 
         }
 

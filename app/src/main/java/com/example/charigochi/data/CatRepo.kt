@@ -15,4 +15,7 @@ class CatRepo @Inject constructor(private val catDbDatasource: CatDbDatasource) 
     suspend fun insertCat(catEntity: CatEntity) =
         catDbDatasource.insertCat(catEntity)
 
+    suspend fun upsertCat(vararg cats: CatEntity) =
+        catDbDatasource.upsertCats(*cats)
+
 }

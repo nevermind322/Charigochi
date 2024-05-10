@@ -4,8 +4,10 @@ plugins {
     alias(libs.plugins.ksp)
     //id ("kotlin-kapt")
     alias(libs.plugins.hilt)
-
+    alias(libs.plugins.room)
 }
+
+
 
 android {
     namespace = "com.example.charigochi"
@@ -33,6 +35,11 @@ android {
             )
         }
     }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

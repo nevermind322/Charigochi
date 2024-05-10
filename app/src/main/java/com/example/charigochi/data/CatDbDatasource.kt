@@ -16,4 +16,7 @@ class CatDbDatasource @Inject constructor(private val catDAO: CatDAO) {
     suspend fun insertCat(catEntity: CatEntity) =
         withContext(Dispatchers.IO) { catDAO.insertCat(catEntity) }
 
+    suspend fun upsertCats(vararg cats: CatEntity) =
+        withContext(Dispatchers.IO) { catDAO.upsertCats(*cats) }
+
 }
