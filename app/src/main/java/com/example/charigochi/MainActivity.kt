@@ -1,6 +1,5 @@
 package com.example.charigochi
 
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,7 +9,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -35,18 +33,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             CharigochiTheme {
                 CharigochiApp()
-                //MainScreen()
-                //Donate()
-                //Settings()
-
             }
         }
     }
 
 }
-
-
-val Context.dataStore by preferencesDataStore(name = "settings")
 
 
 @Composable
