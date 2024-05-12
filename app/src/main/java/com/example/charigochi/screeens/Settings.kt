@@ -1,6 +1,10 @@
 package com.example.charigochi.screeens
 
+import android.app.LocaleManager
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -33,6 +37,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Pink40
 import com.example.charigochi.ui.theme.Pink80
@@ -89,8 +94,9 @@ fun Settings() {
         )
         Spacer(modifier = Modifier.height(10.dp))
 
+
         Text(
-            text = "ЯЗЫК",
+            text =  context.getString(R.string.language_setting),
             style = Typography.titleLarge.copy(color = Pink80),
             modifier = Modifier
                 .fillMaxWidth()
@@ -109,6 +115,8 @@ fun Settings() {
                     painter = painterResource(R.drawable.flafrus),
                     onClick = {
                         Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
+                        val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
+                        AppCompatDelegate.setApplicationLocales(appLocale)
                     }
                 )
             }
@@ -121,6 +129,8 @@ fun Settings() {
                     painter = painterResource(R.drawable.flageng),
                     onClick = {
                         Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
+                        val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-US")
+                        AppCompatDelegate.setApplicationLocales(appLocale)
                     }
                 )
             }

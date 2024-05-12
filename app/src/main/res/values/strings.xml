@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Charigochi</string>
+    <string name="app_name" translatable="false">Charigochi</string>
+    <string name="language_setting">Language</string>
 </resources>
