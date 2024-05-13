@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -86,7 +87,7 @@ fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit, onAbou
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                             .width(300.dp)
-                            .height(70.dp)
+                            .height(IntrinsicSize.Min)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
                     ) {
                         Text(text = "ИГРАТЬ", style = Typography.titleLarge)
@@ -99,7 +100,7 @@ fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit, onAbou
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                             .width(200.dp)
-                            .height(70.dp)
+                            .height(IntrinsicSize.Min)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
 
                     ) {
@@ -113,7 +114,7 @@ fun MenuScreen(onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit, onAbou
                         modifier = Modifier
                             .padding(vertical = 8.dp)
                             .width(200.dp)
-                            .height(70.dp)
+                            .height(IntrinsicSize.Min)
                             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
                     ) {
                         Text(text = "Об авторах", style = Typography.titleLarge)
