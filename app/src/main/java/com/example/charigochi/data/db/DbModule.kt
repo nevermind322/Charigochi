@@ -2,6 +2,7 @@ package com.example.charigochi.data.db
 
 import android.content.Context
 import androidx.room.Room
+import com.example.charigochi.utils.progressDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,13 +15,16 @@ import javax.inject.Singleton
 object DbModule {
     @Provides
     @Singleton
-    fun getDb( @ApplicationContext context: Context) : CharigochiDb {
+    fun getDb(@ApplicationContext context: Context): CharigochiDb {
         return Room.databaseBuilder(context, CharigochiDb::class.java, "cats.db")
-             //.createFromAsset("cats.db")
+            //.createFromAsset("cats.db")
             .build()
     }
 
     @Provides
     fun getSearchDao(db: CharigochiDb) = db.catDAO()
+
+    @Provides
+    fun getDataStore(@ApplicationContext context: Context) = context.progressDataStore
 
 }
