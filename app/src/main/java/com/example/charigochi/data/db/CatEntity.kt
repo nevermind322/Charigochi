@@ -43,6 +43,17 @@ val CatEntity.imageRes: Int
         else -> R.drawable.koshka
     }
 
+val CatEntity.price : Int
+    get() = when(id) {
+        0 -> 500
+        1 -> 600
+        2 -> 700
+        3 -> 800
+        4 -> 900
+        5 -> 1000
+        else -> 0
+    }
+
 val CATS_INIT = listOf(
     CatEntity(0, "Гав", 100, null, 100, null, true, 0),
     CatEntity(1, "Кот в сапогах", 100, null, 100, null, false, 0),
