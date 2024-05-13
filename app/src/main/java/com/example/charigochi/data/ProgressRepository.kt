@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.util.Date
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ProgressRepository @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
     val moneyFlow = dataStore.data.map { it[moneyKey] ?: 500 }
