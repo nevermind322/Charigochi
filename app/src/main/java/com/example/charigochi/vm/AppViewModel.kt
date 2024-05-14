@@ -1,7 +1,10 @@
 package com.example.charigochi.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.charigochi.data.CatFactLanguage
+import com.example.charigochi.data.CatFactRepository
 import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.UpdateAndGetCatsUsecase
@@ -17,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AppViewModel @Inject constructor(
     private val usecase: UpdateAndGetCatsUsecase,
-    private val progressRepo: ProgressRepository
+    private val progressRepo: ProgressRepository,
+    private val catFactRepository: CatFactRepository
 ) : ViewModel() {
 
     val state = MutableStateFlow<AppUiState>(AppUiState.Loading)
@@ -29,8 +33,10 @@ class AppViewModel @Inject constructor(
                 val streak = getStreak()
                 val lastRewardClaim = progressRepo.getLastRewardClaim()
                 val todayRewardClaimed = twoDatesIsSameDayOfYear(Date(lastRewardClaim), Date())
-                AppUiState.Success(cats, money, streak, todayRewardClaimed)
+                val fact = catFactRepository.getFact(CatFactLanguage.RUSSIAN)
+                AppUiState.Success(cats, money, streak, todayRewardClaimed, fact)
             } catch (e: Exception) {
+                Log.d("appUIState", e.message ?: "null")
                 AppUiState.Error(e)
             }
         }
@@ -59,6 +65,7 @@ sealed class AppUiState {
         val money: Int,
         val streak: Int,
         val rewardClaimedToday: Boolean,
+        val catFact: String
     ) : AppUiState()
 
     data class Error(val e: Throwable) : AppUiState()
