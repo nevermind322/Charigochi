@@ -1,6 +1,7 @@
 package com.example.charigochi
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -87,44 +88,46 @@ const val DONATE_SCREEN_ROUTE = "donate"
 @Composable
 fun MainNavHost(appUiState: AppUiState.Success) {
     val navController = rememberNavController()
-    Column {
+    val context = LocalContext.current
+    LaunchedEffect(key1 = Unit) {
 
-        Text(text = "Money: ${appUiState.money}")
+        Toast.makeText(context, appUiState.catFact, Toast.LENGTH_SHORT).show()
+    }
 
-        NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
+    NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
 
-            composable(route = MENU_SCREEN_ROUTE) {
-                MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
-                    onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
-                    onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) })
-            }
+        composable(route = MENU_SCREEN_ROUTE) {
+            MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
+                onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
+                onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) })
+        }
 
-            composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
-                ChooseCat(cats = appUiState.cats)
+        composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
+            ChooseCat(cats = appUiState.cats)
 
-            }
+        }
 
-            composable(route = SETTINGS_SCREEN_ROUTE) {
-                Settings()
-            }
+        composable(route = SETTINGS_SCREEN_ROUTE) {
+            Settings()
+        }
 
-            composable(route = ABOUT_AUTHORS_SCREEN_ROUTE) {
-                AboutUs()
-            }
+        composable(route = ABOUT_AUTHORS_SCREEN_ROUTE) {
+            AboutUs()
+        }
 
-            composable(
-                route = TAMAGOCHI_SCREEN_ROUTE,
-                arguments = listOf(navArgument(TAMAGOCHI_SCREEN_ARGUMENT) {
-                    type = NavType.IntType
-                })
-            ) { backStackEntry ->
-                val catId = backStackEntry.arguments?.getInt(TAMAGOCHI_SCREEN_ARGUMENT) ?: 0
+        composable(
+            route = TAMAGOCHI_SCREEN_ROUTE,
+            arguments = listOf(navArgument(TAMAGOCHI_SCREEN_ARGUMENT) {
+                type = NavType.IntType
+            })
+        ) { backStackEntry ->
+            val catId = backStackEntry.arguments?.getInt(TAMAGOCHI_SCREEN_ARGUMENT) ?: 0
 
-            }
+        }
 
-            composable(route = DONATE_SCREEN_ROUTE) {
+        composable(route = DONATE_SCREEN_ROUTE) {
 
-            }
         }
     }
+
 }
