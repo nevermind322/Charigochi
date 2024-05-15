@@ -33,7 +33,11 @@ class AppViewModel @Inject constructor(
                 val streak = getStreak()
                 val lastRewardClaim = progressRepo.getLastRewardClaim()
                 val todayRewardClaimed = twoDatesIsSameDayOfYear(Date(lastRewardClaim), Date())
-                val fact = catFactRepository.getFact(CatFactLanguage.RUSSIAN)
+                val fact = try {
+                    catFactRepository.getFact(CatFactLanguage.RUSSIAN)
+                } catch (e: Exception) {
+                    CatFactLanguage.RUSSIAN.default
+                }
                 AppUiState.Success(cats, money, streak, todayRewardClaimed, fact)
             } catch (e: Exception) {
                 Log.d("appUIState", e.message ?: "null")
