@@ -26,9 +26,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.data.db.imageRes
-import com.example.charigochi.ui.theme.Pink80
+
 import com.example.charigochi.ui.theme.Typography
-import com.example.charigochi.ui.theme.Yellow20
+
 
 @Composable
 fun ChooseCat(cats: List<CatEntity>) {
@@ -40,7 +40,7 @@ fun ChooseCat(cats: List<CatEntity>) {
         // Фоновый цвет
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Yellow20
+
         ) {
             Column(
                 modifier = Modifier
@@ -50,7 +50,7 @@ fun ChooseCat(cats: List<CatEntity>) {
             ) {
                 Text(
                     text = "Выберите котика:",
-                    style = Typography.titleLarge.copy(color = Pink80),
+                    style = Typography.titleLarge.copy(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 30.dp),

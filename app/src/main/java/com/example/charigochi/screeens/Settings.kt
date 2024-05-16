@@ -39,9 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
-import com.example.charigochi.ui.theme.Pink40
-import com.example.charigochi.ui.theme.Pink80
 import com.example.charigochi.ui.theme.Typography
+
 
 @Composable
 fun ImageButton(painter: Painter, onClick: () -> Unit) {
@@ -56,6 +55,7 @@ fun ImageButton(painter: Painter, onClick: () -> Unit) {
         )
     }
 }
+//TODO звук вкл/выкл
 @Composable
 fun Settings() {
     val context = LocalContext.current
@@ -67,7 +67,7 @@ fun Settings() {
         ) {
         Text(
             text = "ЗВУК",
-            style = Typography.titleLarge.copy(color = Pink80),
+            style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -88,16 +88,14 @@ fun Settings() {
             valueRange = 0f..100f,
             steps = 5,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            colors = SliderDefaults.colors(
-                thumbColor = Pink40// Изменяем цвет круга (ползунка)
-            )
+            colors = SliderDefaults.colors()
         )
         Spacer(modifier = Modifier.height(10.dp))
 
 
         Text(
             text =  context.getString(R.string.language_setting),
-            style = Typography.titleLarge.copy(color = Pink80),
+            style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -140,7 +138,7 @@ fun Settings() {
 
         Text(
             text = "ТЕМА",
-            style = Typography.titleLarge.copy(color = Pink80),
+            style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),

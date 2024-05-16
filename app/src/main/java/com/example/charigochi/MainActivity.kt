@@ -99,7 +99,8 @@ fun MainNavHost(appUiState: AppUiState.Success) {
         composable(route = MENU_SCREEN_ROUTE) {
             MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
                 onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
-                onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) })
+                onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) },
+                success = appUiState)
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {

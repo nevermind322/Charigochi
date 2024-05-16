@@ -1,5 +1,6 @@
 package com.example.charigochi.ui.theme
 
+import android.hardware.lights.Light
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,45 +20,69 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.example.charigochi.R
 
-private val DarkColorScheme = darkColorScheme(
+/*private val DarkColorScheme = darkColorScheme(
     primary = Pink80,
     secondary = Yellow80,
-    tertiary = Blue80,
+    tertiary = Pink80,
+    onSurface = PinkDark,
+    onBackground = Yellow20,
+    onPrimary = Color.White,
+    onSecondary = Color.White,
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Pink40,
     secondary = Yellow40,
-    tertiary = Blue40,
-    onSurface = Color(0xFF1C1B1F),
-    /* Other default colors to override
+    tertiary = Pink80,
+    onSurface = PinkDark,
+    onBackground = PinkDark,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+)*/
+private val LightColorScheme = lightColorScheme(
+    primary = LightPink,
+    secondary = LightTeal,
+    tertiary = LightBlue,
+    background = LightYellow,
+    surface = LightLavender,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+    onTertiary = Color.Black,
+    onBackground = Color.Black,
+    onSurface = Color.Black,
+)
 
-    surface = Color(0xFFFFFBFE),
+val DarkColorScheme = darkColorScheme(
+    primary = DarkPink,
+    secondary = DarkTeal,
+    tertiary = DarkBlue,
+    background = DarkBackground,
+    surface = DarkLavender,
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    onBackground = Color.White,
+    onSurface = Color.White,
 )
-
 
 // Функция для установки фона с изображением
 @Composable
-fun BackgroundImage(imagePainter: Painter, content: @Composable () -> Unit) {
+fun BackgroundImage(
+    imagePainter: Painter,
+    content: @Composable () -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
-        // Отображение изображения на фоне
         Image(
             painter = imagePainter,
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            // ContentScale.FillBounds позволяет заполнить всю доступную область изображением, сохраняя его пропорции
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop // Обрезаем изображение, чтобы сохранить его пропорции
         )
-        // Отображение остального содержимого поверх изображения
         content()
     }
 }
+
+
 
 @Composable
 fun CharigochiTheme(
@@ -74,7 +99,11 @@ fun CharigochiTheme(
         else -> LightColorScheme
     }
 
-    val backgroundImagePainter = painterResource(id = R.drawable.background_light) // Замените на ваш ресурс изображения
+    val backgroundImagePainter = if (darkTheme) {
+        painterResource(id = R.drawable.background_dark) // Замените на идентификатор темного изображения
+    } else {
+        painterResource(id = R.drawable.background_light) // Замените на идентификатор светлого изображения
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,

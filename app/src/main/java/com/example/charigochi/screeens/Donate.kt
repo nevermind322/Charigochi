@@ -20,9 +20,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.charigochi.ui.theme.Pink80
+
 import com.example.charigochi.ui.theme.Typography
-import com.example.charigochi.ui.theme.Yellow20
+
 
 @Composable
 fun Donate(fonds: List<String>) {
@@ -34,7 +34,7 @@ fun Donate(fonds: List<String>) {
         // Фоновый цвет
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = Yellow20
+
         ) {
             Column(
                 modifier = Modifier
@@ -44,7 +44,7 @@ fun Donate(fonds: List<String>) {
             ) {
                 Text(
                     text = "Выберите организацию для пожертвования:",
-                    style = Typography.titleLarge.copy(color = Pink80),
+                    style = Typography.titleLarge.copy(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 30.dp),

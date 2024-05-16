@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.charigochi.ui.theme.Grey80
 import com.example.charigochi.ui.theme.Typography
 
 @Composable
@@ -28,7 +27,7 @@ fun AboutUs() {
         ) {
         Text(
             text = "Цель нашего приложения",
-            style = Typography.titleLarge.copy(color = Grey80),
+            style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -36,7 +35,7 @@ fun AboutUs() {
         )
         Text(
             text = "Мы столкнулись с необходимостью привлечения внимания пользователей к поддержке фондов и приютов, которые заботятся о бездомных животных.",
-            style = Typography.bodyLarge.copy(color = Grey80),
+            style = Typography.bodyLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -44,7 +43,7 @@ fun AboutUs() {
         )
         Text(
             text = "Задачей было познакомить Вас с конкретными фондами и замотивировать оформить разовый донат в игровой форме.",
-            style = Typography.bodyLarge.copy(color = Grey80),
+            style = Typography.bodyLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -52,7 +51,7 @@ fun AboutUs() {
         )
         Text(
             text = "Разработчики:",
-            style = Typography.titleLarge.copy(color = Grey80),
+            style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -60,7 +59,7 @@ fun AboutUs() {
         )
         Text(
             text = "Филонов Алексей и Павлова Татьяна",
-            style = Typography.bodyLarge.copy(color = Grey80),
+            style = Typography.bodyLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
