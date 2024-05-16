@@ -55,6 +55,8 @@ class AppViewModel @Inject constructor(
             val streak = progressRepo.getStreak()
             progressRepo.updateStreak(streak + 1)
             streak
+        } else if (twoDatesIsSameDayOfYear(today, prevLoginDate)) {
+            progressRepo.getStreak()
         } else {
             progressRepo.resetStreak()
             1
