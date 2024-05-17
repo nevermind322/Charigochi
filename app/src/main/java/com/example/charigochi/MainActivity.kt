@@ -20,12 +20,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.screeens.AboutUs
 import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.MenuScreen
 import com.example.charigochi.screeens.Settings
 import com.example.charigochi.screeens.SomethingWentWrong
+import com.example.charigochi.screeens.TamagochiScreen
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.utils.moneyKey
 import com.example.charigochi.utils.progressDataStore
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             CharigochiTheme {
                 CharigochiApp()
+                //TamagochiScreen(cat = CATS_INIT[0], vm = hiltViewModel())
             }
         }
     }
@@ -81,7 +84,7 @@ const val CHOOSE_CAT_SCREEN_ROUTE = "chooseCat"
 const val SETTINGS_SCREEN_ROUTE = "settings"
 const val ABOUT_AUTHORS_SCREEN_ROUTE = "aboutAuthors"
 const val TAMAGOCHI_SCREEN_ARGUMENT = "catId"
-const val TAMAGOCHI_SCREEN_ROUTE = "tamagochi/{$TAMAGOCHI_SCREEN_ARGUMENT}"
+const val TAMAGOCHI_SCREEN_ROUTE = "tamagochi"
 const val DONATE_SCREEN_ROUTE = "donate"
 
 
@@ -97,15 +100,18 @@ fun MainNavHost(appUiState: AppUiState.Success) {
     NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
 
         composable(route = MENU_SCREEN_ROUTE) {
-            MenuScreen(onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
+            MenuScreen(
+                onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
                 onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
                 onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) },
-                success = appUiState)
+                success = appUiState
+            )
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
-            ChooseCat(cats = appUiState.cats)
-
+            ChooseCat(
+                cats = appUiState.cats,
+                onTamagochiClick = { id -> navController.navigate("$TAMAGOCHI_SCREEN_ROUTE/$id") })
         }
 
         composable(route = SETTINGS_SCREEN_ROUTE) {
@@ -117,17 +123,16 @@ fun MainNavHost(appUiState: AppUiState.Success) {
         }
 
         composable(
-            route = TAMAGOCHI_SCREEN_ROUTE,
+            route = "$TAMAGOCHI_SCREEN_ROUTE/{$TAMAGOCHI_SCREEN_ARGUMENT}",
             arguments = listOf(navArgument(TAMAGOCHI_SCREEN_ARGUMENT) {
                 type = NavType.IntType
             })
         ) { backStackEntry ->
             val catId = backStackEntry.arguments?.getInt(TAMAGOCHI_SCREEN_ARGUMENT) ?: 0
-
+            TamagochiScreen(cat = appUiState.cats.first { it.id == catId }, vm = hiltViewModel())
         }
 
         composable(route = DONATE_SCREEN_ROUTE) {
-
 
         }
     }

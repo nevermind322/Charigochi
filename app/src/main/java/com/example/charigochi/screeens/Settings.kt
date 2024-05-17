@@ -43,15 +43,15 @@ import com.example.charigochi.ui.theme.Typography
 
 
 @Composable
-fun ImageButton(painter: Painter, onClick: () -> Unit) {
+fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(
         onClick = onClick,
-        modifier = Modifier.size(100.dp),
+        modifier = modifier,
     ) {
         Image(
             painter = painter,
             contentDescription = null,
-            modifier = Modifier.size(120.dp)
+            modifier = modifier
         )
     }
 }
@@ -115,7 +115,8 @@ fun Settings() {
                         Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
                         AppCompatDelegate.setApplicationLocales(appLocale)
-                    }
+                    },
+                    modifier = Modifier.size(120.dp)
                 )
             }
 
@@ -129,7 +130,8 @@ fun Settings() {
                         Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-US")
                         AppCompatDelegate.setApplicationLocales(appLocale)
-                    }
+                    },
+                    modifier = Modifier.size(120.dp)
                 )
             }
         }

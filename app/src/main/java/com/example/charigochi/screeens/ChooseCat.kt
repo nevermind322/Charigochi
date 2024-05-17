@@ -2,20 +2,22 @@ package com.example.charigochi.screeens
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,20 +25,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.data.db.imageRes
+import com.example.charigochi.data.db.price
 import com.example.charigochi.ui.theme.Typography
 
 @Composable
-fun ChooseCat(cats: List<CatEntity>) {
+fun ChooseCat(cats: List<CatEntity>, onTamagochiClick: (Int) -> Unit) {
     val context = LocalContext.current
-    Box(
+    Column(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Фоновый цвет
         Surface(
@@ -57,22 +63,14 @@ fun ChooseCat(cats: List<CatEntity>) {
                     textAlign = TextAlign.Center
                 )
 
-                Column(
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
+                        .padding(horizontal = 8.dp)
                 ) {
-                    cats.chunked(2).forEach { catPair ->
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceEvenly
-                        ) {
-                            for (cat in catPair) {
-                                CatCard(cat = cat)
-                            }
-                        }
+                    items(cats.size) { index ->
+                        CatCard(cat = cats[index], onTamagochiClick)
                     }
                 }
             }
@@ -81,25 +79,34 @@ fun ChooseCat(cats: List<CatEntity>) {
 }
 
 @Composable
-fun CatCard(cat: CatEntity) {
+fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit) {
     val context = LocalContext.current
-    Button(
-        onClick = {
-            // Действие при нажатии на карточку котика
-            Toast.makeText(context, "Выбран котик: ${cat.id}", Toast.LENGTH_SHORT).show()
-        },
+    Box(
         modifier = Modifier
             .padding(8.dp)
             .width(150.dp)
             .height(200.dp) // Высота карточки котика
             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
+            .clickable { if (cat.unlocked) onTamagochiClick(cat.id) }
     ) {
-        // Содержимое карточки котика
+        // Цифра количества смертей в верхнем правом углу
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(4.dp)
+                .clip(RoundedCornerShape(50))
+                .background(Color.Red)
+        ) {
+            Text(
+                text = cat.deaths.toString(),
+                color = Color.White,
+                modifier = Modifier.padding(4.dp)
+            )
+        }
         Column(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Имя котика
             Text(
                 text = cat.name,
                 style = Typography.titleLarge,
@@ -107,10 +114,30 @@ fun CatCard(cat: CatEntity) {
                 modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
             )
             Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
+
+            // Изображение котика
             Image(
                 painter = painterResource(id = cat.imageRes),
-                contentDescription = null
+                contentDescription = null,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+                colorFilter = if (!cat.unlocked) ColorFilter.tint(Color.Gray) else null
             )
+            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и кнопкой цены
+
+            // Кнопка цены, если котик не разблокирован
+            if (!cat.unlocked) {
+                Button(
+                    onClick = {
+                        // Действие при нажатии на кнопку цены
+                        Toast.makeText(context, "Цена: 100", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Цена: ${cat.price}") // Здесь должна быть логика получения цены
+                }
+            }
         }
     }
 }

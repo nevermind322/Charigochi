@@ -32,6 +32,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.example.charigochi.ui.theme.DarkColorScheme
 
@@ -69,7 +70,7 @@ fun MenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Баланс:",
+                text = "Баланс: ${success.money}",
                 style = Typography.titleLarge.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -148,4 +149,23 @@ fun MenuScreen(
             )
         }
     }
+}
+@Composable
+fun RewardDialog(onConfirm: () -> Unit, ) {
+    val context = LocalContext.current
+
+    AlertDialog(
+        onDismissRequest = onConfirm,
+        title = {
+            Text(text =  "yes", style = Typography.bodyMedium)
+        },
+        text = {
+            Text(text =  "yes", style = Typography.bodyMedium)
+        },
+        confirmButton = {
+            Button(onClick = onConfirm) {
+                Text(text =  "thank u", style = Typography.bodyMedium)
+            }
+        }
+    )
 }
