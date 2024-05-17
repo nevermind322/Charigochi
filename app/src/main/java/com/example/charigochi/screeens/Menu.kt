@@ -29,11 +29,19 @@ import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.vm.AppUiState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.example.charigochi.ui.theme.DarkColorScheme
 
 @Composable
-fun MenuScreen(success: AppUiState.Success, onSettingsClick: () -> Unit, onCatChooseClick: () -> Unit, onAboutUsClick: () -> Unit) {
+fun MenuScreen(
+    success: AppUiState.Success,
+    onSettingsClick: () -> Unit,
+    onCatChooseClick: () -> Unit,
+    onAboutUsClick: () -> Unit
+) {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
     val primaryColor = colorScheme.primary
@@ -94,7 +102,10 @@ fun MenuScreen(success: AppUiState.Success, onSettingsClick: () -> Unit, onCatCh
                         .clip(RoundedCornerShape(16.dp)),
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
-                    Text(text = "ИГРАТЬ", style = Typography.titleLarge.copy(color = onPrimaryColor))
+                    Text(
+                        text = "ИГРАТЬ",
+                        style = Typography.titleLarge.copy(color = onPrimaryColor)
+                    )
                 }
 
                 Button(
@@ -106,7 +117,10 @@ fun MenuScreen(success: AppUiState.Success, onSettingsClick: () -> Unit, onCatCh
                         .clip(RoundedCornerShape(16.dp)),
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
-                    Text(text = "Настройки", style = Typography.titleLarge.copy(color = onPrimaryColor))
+                    Text(
+                        text = "Настройки",
+                        style = Typography.titleLarge.copy(color = onPrimaryColor)
+                    )
                 }
 
                 Button(
@@ -118,7 +132,10 @@ fun MenuScreen(success: AppUiState.Success, onSettingsClick: () -> Unit, onCatCh
                         .clip(RoundedCornerShape(16.dp)),
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
-                    Text(text = "Об авторах", style = Typography.titleLarge.copy(color = onPrimaryColor))
+                    Text(
+                        text = "Об авторах",
+                        style = Typography.titleLarge.copy(color = onPrimaryColor)
+                    )
                 }
             }
             Text(
@@ -127,6 +144,7 @@ fun MenuScreen(success: AppUiState.Success, onSettingsClick: () -> Unit, onCatCh
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .verticalScroll(rememberScrollState())
             )
         }
     }
