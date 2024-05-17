@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
@@ -26,9 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.data.db.imageRes
-
 import com.example.charigochi.ui.theme.Typography
-
 
 @Composable
 fun ChooseCat(cats: List<CatEntity>) {
@@ -40,7 +41,6 @@ fun ChooseCat(cats: List<CatEntity>) {
         // Фоновый цвет
         Surface(
             modifier = Modifier.fillMaxSize(),
-
         ) {
             Column(
                 modifier = Modifier
@@ -60,14 +60,20 @@ fun ChooseCat(cats: List<CatEntity>) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(),
-                    verticalArrangement = Arrangement.Center,
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    for (cat in cats)
-                        CatCard(cat = cat)
-
-
+                    cats.chunked(2).forEach { catPair ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            for (cat in catPair) {
+                                CatCard(cat = cat)
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -83,16 +89,16 @@ fun CatCard(cat: CatEntity) {
             Toast.makeText(context, "Выбран котик: ${cat.id}", Toast.LENGTH_SHORT).show()
         },
         modifier = Modifier
-            .padding(vertical = 8.dp)
-            .width(300.dp)
+            .padding(8.dp)
+            .width(150.dp)
             .height(200.dp) // Высота карточки котика
             .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
     ) {
         // Содержимое карточки котика
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
             // Имя котика
             Text(
                 text = cat.name,
@@ -100,7 +106,11 @@ fun CatCard(cat: CatEntity) {
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
             )
-            Image(painter = painterResource(id = cat.imageRes), contentDescription =null)
+            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
+            Image(
+                painter = painterResource(id = cat.imageRes),
+                contentDescription = null
+            )
         }
     }
 }

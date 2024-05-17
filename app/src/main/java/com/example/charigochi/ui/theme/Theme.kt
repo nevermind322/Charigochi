@@ -45,11 +45,11 @@ private val LightColorScheme = lightColorScheme(
     tertiary = LightBlue,
     background = LightYellow,
     surface = LightLavender,
-    onPrimary = Color.Black,
-    onSecondary = Color.Black,
-    onTertiary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
+    onPrimary = DarkBackground,
+    onSecondary = DarkBackground,
+    onTertiary = DarkBackground,
+    onBackground = DarkBackground,
+    onSurface = DarkBackground,
 )
 
 val DarkColorScheme = darkColorScheme(
