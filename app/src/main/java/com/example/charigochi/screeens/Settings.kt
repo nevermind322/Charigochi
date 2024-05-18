@@ -189,6 +189,7 @@ fun Settings(vm: SettingsViewModel) {
 
             Button(
                 onClick = {
+                    currentTheme = "light"
                     Toast.makeText(context, "Светлая тема", Toast.LENGTH_SHORT).show()
                     vm.changeTheme(Theme.Light)
                 },
