@@ -1,34 +1,15 @@
 package com.example.charigochi.screeens
 
-import android.app.LocaleManager
-import android.os.Build
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Typography
-
 
 @Composable
 fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -55,16 +35,23 @@ fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modi
         )
     }
 }
-//TODO звук вкл/выкл
+
 @Composable
 fun Settings() {
     val context = LocalContext.current
+
+    // Сохранение состояния для звука, языка и темы
+    var isSoundOn by rememberSaveable { mutableStateOf(true) }
+    var currentLanguage by rememberSaveable { mutableStateOf("ru-RU") }
+    var currentTheme by rememberSaveable { mutableStateOf("default") }
+
     Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(vertical = 100.dp, horizontal = 10.dp),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 30.dp, horizontal = 8.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = "ЗВУК",
             style = Typography.titleLarge.copy(),
@@ -73,46 +60,70 @@ fun Settings() {
                 .padding(8.dp),
             textAlign = TextAlign.Center
         )
-        var volume by remember { mutableStateOf(0f) }
 
-        val animatedVolume by animateFloatAsState(
-            targetValue = volume,
-            animationSpec = tween(durationMillis = 300)
-        )
-        Slider(
-            value = animatedVolume,
-            onValueChange = { newVolume ->
-                volume = newVolume
-                // Здесь вы можете выполнить логику изменения громкости в вашем приложении
-            },
-            valueRange = 0f..100f,
-            steps = 5,
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-            colors = SliderDefaults.colors()
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Button(
+                onClick = {
+                    isSoundOn = true
+                    Toast.makeText(context, "Звук включен", Toast.LENGTH_SHORT).show()
+                    // Добавьте здесь логику включения звука
+                },
+                enabled = !isSoundOn,
+                modifier = Modifier
+                    .padding(vertical = 8.dp, horizontal = 4.dp)
+                    .weight(1f)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(8.dp))
+            ) {
+                Text(text = "Вкл", style = Typography.labelSmall)
+            }
+
+            Button(
+                onClick = {
+                    isSoundOn = false
+                    Toast.makeText(context, "Звук выключен", Toast.LENGTH_SHORT).show()
+                    // Добавьте здесь логику выключения звука
+                },
+                enabled = isSoundOn,
+                modifier = Modifier
+                    .padding(vertical = 8.dp, horizontal = 4.dp)
+                    .weight(1f)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(8.dp))
+            ) {
+                Text(text = "Выкл", style = Typography.labelSmall)
+            }
+        }
+
         Spacer(modifier = Modifier.height(10.dp))
 
-
         Text(
-            text =  context.getString(R.string.language_setting),
+            text = context.getString(R.string.language_setting),
             style = Typography.titleLarge.copy(),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
             textAlign = TextAlign.Center
         )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Box(
-                modifier = Modifier.weight(1f).padding(8.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 ImageButton(
                     painter = painterResource(R.drawable.flafrus),
                     onClick = {
-                        Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
+                        currentLanguage = "ru-RU"
+                        Toast.makeText(context, "Выбран русский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
                         AppCompatDelegate.setApplicationLocales(appLocale)
                     },
@@ -121,13 +132,16 @@ fun Settings() {
             }
 
             Box(
-                modifier = Modifier.weight(1f).padding(8.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 ImageButton(
                     painter = painterResource(R.drawable.flageng),
                     onClick = {
-                        Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
+                        currentLanguage = "en-US"
+                        Toast.makeText(context, "Выбран английский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-US")
                         AppCompatDelegate.setApplicationLocales(appLocale)
                     },
@@ -146,50 +160,58 @@ fun Settings() {
                 .padding(8.dp),
             textAlign = TextAlign.Center
         )
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
                 onClick = {
-                    Toast.makeText(context, "Кнопка 1", Toast.LENGTH_SHORT).show()
+                    currentTheme = "dark"
+                    Toast.makeText(context, "Темная тема", Toast.LENGTH_SHORT).show()
+                    // Добавьте здесь логику включения темной темы
                 },
+                enabled = currentTheme != "dark",
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 4.dp)
                     .weight(1f)
                     .height(80.dp)
-                    .clip(RoundedCornerShape(8.dp)) // Указываем радиус скругления углов
+                    .clip(RoundedCornerShape(8.dp))
             ) {
                 Text(text = "Темная", style = Typography.labelSmall)
             }
 
             Button(
                 onClick = {
-                    Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
+                    currentTheme = "light"
+                    Toast.makeText(context, "Светлая тема", Toast.LENGTH_SHORT).show()
+                    // Добавьте здесь логику включения светлой темы
                 },
+                enabled = currentTheme != "light",
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 4.dp)
                     .weight(1f)
                     .height(80.dp)
-                    .clip(RoundedCornerShape(8.dp)) // Указываем радиус скругления углов
+                    .clip(RoundedCornerShape(8.dp))
             ) {
                 Text(text = "Светлая", style = Typography.labelSmall)
             }
+
             Button(
                 onClick = {
-                    Toast.makeText(context, "Кнопка 2", Toast.LENGTH_SHORT).show()
+                    currentTheme = "default"
+                    Toast.makeText(context, "Тема по умолчанию", Toast.LENGTH_SHORT).show()
+                    // Добавьте здесь логику включения темы по умолчанию
                 },
+                enabled = currentTheme != "default",
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 2.dp)
                     .weight(1f)
                     .height(80.dp)
-                    .clip(RoundedCornerShape(8.dp)) // Указываем радиус скругления углов
+                    .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "По умолчанию", style = Typography.labelSmall, textAlign = TextAlign.Center,)
-
+                Text(text = "По умолчанию", style = Typography.labelSmall, textAlign = TextAlign.Center)
             }
         }
-
     }
-
 }
