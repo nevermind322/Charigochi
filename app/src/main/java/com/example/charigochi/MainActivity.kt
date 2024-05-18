@@ -7,15 +7,21 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -33,6 +39,7 @@ import com.example.charigochi.screeens.SomethingWentWrong
 import com.example.charigochi.screeens.TamagochiScreen
 import com.example.charigochi.screens.AboutUs
 import com.example.charigochi.ui.theme.CharigochiTheme
+import com.example.charigochi.ui.theme.DarkPink
 import com.example.charigochi.utils.moneyKey
 import com.example.charigochi.utils.progressDataStore
 import com.example.charigochi.vm.AppUiState
@@ -41,6 +48,7 @@ import com.example.charigochi.vm.MainActivityViewModel
 import com.example.charigochi.vm.SettingsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
+import java.nio.file.WatchEvent
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -106,7 +114,15 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
     when (state) {
         AppUiState.Loading -> {
             // Экран загрузки
-            CircularProgressIndicator(color = Color.Cyan)
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(
+                    color = DarkPink,
+                    modifier = Modifier.size(100.dp) // Установите желаемый размер
+                )
+            }
         }
 
         is AppUiState.Error -> {

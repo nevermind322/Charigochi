@@ -36,6 +36,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import com.example.charigochi.data.CatFactLanguage
 import com.example.charigochi.ui.theme.DarkColorScheme
 import com.example.charigochi.utils.streakToMoney
 import com.example.charigochi.vm.MenuViewModel
@@ -83,7 +84,7 @@ fun MenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Баланс: ${success.money}",
+                text = "Баланс: ${money} $",
                 style = Typography.titleLarge.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -162,6 +163,29 @@ fun MenuScreen(
         }
     }
 }
+fun getRightWord(days: Int, language : CatFactLanguage):String{
+    return when (language){
+        CatFactLanguage.ENGLISH -> {
+            when(days){
+                1-> "day"
+                else -> "days"
+            }
+        }
+        CatFactLanguage.RUSSIAN -> {
+            val preLastNum = days %100/10
+            if (preLastNum == 1)
+                "дней"
+            else {
+                val lastNum = days % 10
+                when (lastNum) {
+                    1 -> "день"
+                    in 2..4 -> "дня"
+                    else -> "дней"
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
@@ -171,12 +195,12 @@ fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
 
 
     AlertDialog(onDismissRequest = onConfirm2, title = {
-        Text(text = "yes", style = Typography.bodyMedium)
+        Text(text = "Поздравляем!", style = Typography.bodyMedium)
     }, text = {
-        Text(text = "yes", style = Typography.bodyMedium)
+        Text(text = "Вы заходили $streak ${getRightWord(days = streak, language = CatFactLanguage.RUSSIAN)} и получили $moneyBonus $!", style = Typography.bodyMedium)
     }, confirmButton = {
         Button(onClick = onConfirm2) {
-            Text(text = "thank u", style = Typography.bodyMedium)
+            Text(text = "Спасибо!", style = Typography.bodyMedium)
         }
     })
 }

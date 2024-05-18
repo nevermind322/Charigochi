@@ -85,11 +85,11 @@ fun ChooseCat(
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = "Выберите котика:",
-                    style = Typography.titleLarge.copy(),
+                    text = "${money} $",
+                    style = Typography.titleLarge.copy(color = onBackgroundColor),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 30.dp),
+                        .width(80.dp)
+                        .padding(4.dp),
                     textAlign = TextAlign.Center
                 )
 
