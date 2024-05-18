@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.example.charigochi.R
+import com.example.charigochi.data.Theme
 
 /*private val DarkColorScheme = darkColorScheme(
     primary = Pink80,
@@ -83,18 +84,20 @@ fun BackgroundImage(
 }
 
 
-
 @Composable
 fun CharigochiTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    theme: Theme,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+    val darkTheme: Boolean =
+        if (theme == Theme.Default) isSystemInDarkTheme() else theme == Theme.Dark
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }

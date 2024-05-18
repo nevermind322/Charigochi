@@ -3,6 +3,7 @@ package com.example.charigochi.data
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import com.example.charigochi.data.db.ProgressDataStore
 import com.example.charigochi.utils.currentStreakKey
 import com.example.charigochi.utils.lastLoginDateKey
 import com.example.charigochi.utils.lastRewardClaimKey
@@ -14,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProgressRepository @Inject constructor(private val dataStore: DataStore<Preferences>) {
+class ProgressRepository @Inject constructor(@ProgressDataStore private val dataStore: DataStore<Preferences>) {
 
     val moneyFlow = dataStore.data.map { it[moneyKey] ?: 500 }
 

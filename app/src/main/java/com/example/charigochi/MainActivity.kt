@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,6 +34,8 @@ import com.example.charigochi.utils.moneyKey
 import com.example.charigochi.utils.progressDataStore
 import com.example.charigochi.vm.AppUiState
 import com.example.charigochi.vm.AppViewModel
+import com.example.charigochi.vm.MainActivityViewModel
+import com.example.charigochi.vm.SettingsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 
@@ -40,10 +43,17 @@ import kotlinx.coroutines.flow.map
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val vm by viewModels<MainActivityViewModel>()
         setContent {
-            CharigochiTheme {
-                CharigochiApp()
-                //TamagochiScreen(cat = CATS_INIT[0], vm = hiltViewModel())
+            val settingsState by vm.stateFlow.collectAsState()
+
+            when (settingsState) {
+                SettingsState.Loading -> Unit
+                is SettingsState.Success ->
+                    CharigochiTheme(theme = (settingsState as SettingsState.Success).theme) {
+                        CharigochiApp()
+                        //TamagochiScreen(cat = CATS_INIT[0], vm = hiltViewModel())
+                    }
             }
         }
     }
@@ -118,7 +128,7 @@ fun MainNavHost(appUiState: AppUiState.Success) {
         }
 
         composable(route = SETTINGS_SCREEN_ROUTE) {
-            Settings()
+            Settings(vm = hiltViewModel())
         }
 
         composable(route = ABOUT_AUTHORS_SCREEN_ROUTE) {
