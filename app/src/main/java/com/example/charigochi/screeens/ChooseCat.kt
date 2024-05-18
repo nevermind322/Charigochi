@@ -187,7 +187,7 @@ fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: Buy
                         .height(40.dp), // Устанавливаем фиксированную высоту кнопки
                     enabled = buyButtonState.enabled
                 ) {
-                    Text(text = "Цена: ${cat.price}", maxLines = 1, overflow = TextOverflow.Ellipsis) // Ограничиваем количество строк и используем многоточие
+                    Text(text = "Цена: ${cat.price}") // Ограничиваем количество строк и используем многоточие
                 }
             }
         }
