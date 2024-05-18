@@ -110,8 +110,11 @@ fun MainNavHost(appUiState: AppUiState.Success) {
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
             ChooseCat(
-                cats = appUiState.cats,
-                onTamagochiClick = { id -> navController.navigate("$TAMAGOCHI_SCREEN_ROUTE/$id") })
+                catsInit = appUiState.cats,
+                moneyInit = appUiState.money,
+                onTamagochiClick = { id -> navController.navigate("$TAMAGOCHI_SCREEN_ROUTE/$id") },
+                vm = hiltViewModel()
+            )
         }
 
         composable(route = SETTINGS_SCREEN_ROUTE) {
