@@ -13,7 +13,7 @@ class MenuViewModel @Inject constructor(private val progressRepository: Progress
     ViewModel() {
 
     val moneyFlow = progressRepository.moneyFlow
-
+    val isRewardClaimedFlow = progressRepository.isRewardClaimedFlow
     fun claimReward(reward: Int) {
         viewModelScope.launch {
             progressRepository.addMoney(reward)

@@ -8,6 +8,7 @@ import com.example.charigochi.utils.currentStreakKey
 import com.example.charigochi.utils.lastLoginDateKey
 import com.example.charigochi.utils.lastRewardClaimKey
 import com.example.charigochi.utils.moneyKey
+import com.example.charigochi.utils.twoDatesIsSameDayOfYear
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.util.Date
@@ -18,6 +19,13 @@ import javax.inject.Singleton
 class ProgressRepository @Inject constructor(@ProgressDataStore private val dataStore: DataStore<Preferences>) {
 
     val moneyFlow = dataStore.data.map { it[moneyKey] ?: 500 }
+    val isRewardClaimedFlow =
+        dataStore.data.map {
+            val today = Date()
+            val lastRewardClaimedDate =
+                Date(it[lastRewardClaimKey] ?: (Date().time - 1000L * 60 * 60 * 24))
+            twoDatesIsSameDayOfYear(today, lastRewardClaimedDate)
+        }
 
     suspend fun addMoney(money: Int) {
         dataStore.edit {

@@ -32,9 +32,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.example.charigochi.ui.theme.DarkColorScheme
+import com.example.charigochi.utils.streakToMoney
 import com.example.charigochi.vm.MenuViewModel
 
 @Composable
@@ -46,8 +49,13 @@ fun MenuScreen(
     vm: MenuViewModel
 ) {
 
-    if (!success.rewardClaimedToday)
-        RewardDialog(onConfirm = {})
+    val money by vm.moneyFlow.collectAsState(initial = success.money)
+    val isRewardClaimedToday by vm.isRewardClaimedFlow.collectAsState(initial = success.rewardClaimedToday)
+
+    if (!isRewardClaimedToday) RewardDialog(
+        streak = success.streak,
+        onConfirm = { vm.claimReward(it) })
+
 
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
@@ -65,8 +73,7 @@ fun MenuScreen(
 
     // Фоновый цвет
     Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = backgroundColor
+        modifier = Modifier.fillMaxSize(), color = backgroundColor
     ) {
         Column(
             modifier = Modifier
@@ -110,8 +117,7 @@ fun MenuScreen(
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
                     Text(
-                        text = "ИГРАТЬ",
-                        style = Typography.titleLarge.copy(color = onPrimaryColor)
+                        text = "ИГРАТЬ", style = Typography.titleLarge.copy(color = onPrimaryColor)
                     )
                 }
 
@@ -158,21 +164,19 @@ fun MenuScreen(
 }
 
 @Composable
-fun RewardDialog(onConfirm: () -> Unit) {
+fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
     val context = LocalContext.current
+    val moneyBonus = streakToMoney[streak] ?: 1000
+    val onConfirm2 = { onConfirm(moneyBonus) }
 
-    AlertDialog(
-        onDismissRequest = onConfirm,
-        title = {
-            Text(text = "yes", style = Typography.bodyMedium)
-        },
-        text = {
-            Text(text = "yes", style = Typography.bodyMedium)
-        },
-        confirmButton = {
-            Button(onClick = onConfirm) {
-                Text(text = "thank u", style = Typography.bodyMedium)
-            }
+
+    AlertDialog(onDismissRequest = onConfirm2, title = {
+        Text(text = "yes", style = Typography.bodyMedium)
+    }, text = {
+        Text(text = "yes", style = Typography.bodyMedium)
+    }, confirmButton = {
+        Button(onClick = onConfirm2) {
+            Text(text = "thank u", style = Typography.bodyMedium)
         }
-    )
+    })
 }
