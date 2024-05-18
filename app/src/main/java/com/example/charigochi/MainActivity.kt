@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
+import com.example.charigochi.data.funds
 import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
@@ -178,7 +179,7 @@ fun MainNavHost(appUiState: AppUiState.Success) {
         }
 
         composable(route = DONATE_SCREEN_ROUTE) {
-            Donate(fonds = listOf())
+            Donate(fonds = funds)
         }
     }
 }
