@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.data.db.imageRes
@@ -63,12 +65,18 @@ fun ChooseCat(
     onBuyButtonClick: (Int) -> Unit
 ) {
     val context = LocalContext.current
+    val colorScheme = MaterialTheme.colorScheme
+    val primaryColor = colorScheme.primary
+    val onPrimaryColor = colorScheme.onPrimary
+    val backgroundColor = colorScheme.background
+    val onBackgroundColor = colorScheme.onBackground
     Column(
         modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Фоновый цвет
         Surface(
             modifier = Modifier.fillMaxSize(),
+            color = backgroundColor
         ) {
             Column(
                 modifier = Modifier
@@ -105,18 +113,23 @@ fun ChooseCat(
     }
 }
 
-@Stable
-data class BuyButtonState(val enabled: Boolean, val onClick: (Int) -> Unit)
+data class BuyButtonState(
+    val enabled: Boolean,
+    val onClick: (Int) -> Unit
+)
 
 @Composable
 fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: BuyButtonState) {
     val context = LocalContext.current
-    Box(modifier = Modifier
-        .padding(8.dp)
-        .width(150.dp)
-        .height(200.dp) // Высота карточки котика
-        .clip(RoundedCornerShape(16.dp)) // Указываем радиус скругления углов
-        .clickable { if (cat.unlocked) onTamagochiClick(cat.id) }) {
+
+    Box(
+        modifier = Modifier
+            .padding(8.dp)
+            .width(150.dp)
+            .height(230.dp) // Высота карточки котика
+            .clip(RoundedCornerShape(8.dp)) // Указываем радиус скругления углов
+            .clickable { if (cat.unlocked) onTamagochiClick(cat.id) }
+    ) {
         // Цифра количества смертей в верхнем правом углу
         Box(
             modifier = Modifier
@@ -126,26 +139,35 @@ fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: Buy
                 .background(Color.Red)
         ) {
             Text(
-                text = cat.deaths.toString(), color = Color.White, modifier = Modifier.padding(4.dp)
+                text = cat.deaths.toString(),
+                color = Color.White,
+                modifier = Modifier.padding(4.dp)
             )
         }
         Column(
-            modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween // Добавляем пространство между элементами
         ) {
             Text(
                 text = cat.name,
                 style = Typography.titleLarge,
                 textAlign = TextAlign.Center,
+                maxLines = 1, // Ограничиваем количество строк
+                overflow = TextOverflow.Ellipsis, // Используем многоточие, если текст не помещается
                 modifier = Modifier.fillMaxWidth() // Ширина текста равна ширине карточки
             )
-            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между изображением и текстом
+            Spacer(modifier = Modifier.height(8.dp)) // Вертикальный отступ между текстом и изображением
 
             // Изображение котика
             Image(
                 painter = painterResource(id = cat.imageRes),
                 contentDescription = null,
-                modifier = Modifier
-                    .weight(1f)
+                modifier = if (!cat.unlocked) Modifier
+                    .height(100.dp) // Устанавливаем фиксированную высоту изображения
+                    .fillMaxWidth()
+                else Modifier
+                    .height(150.dp) // Устанавливаем фиксированную высоту изображения
                     .fillMaxWidth(),
                 colorFilter = if (!cat.unlocked) ColorFilter.tint(Color.Gray) else null
             )
@@ -157,12 +179,15 @@ fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: Buy
                     onClick = {
                         // Действие при нажатии на кнопку цены
                         buyButtonState.onClick(cat.id)
-                        Toast.makeText(context, "Цена: 100", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Цена: ${cat.price}", Toast.LENGTH_SHORT).show()
                     },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp) // Добавляем отступы для кнопки
+                        .height(40.dp), // Устанавливаем фиксированную высоту кнопки
                     enabled = buyButtonState.enabled
                 ) {
-                    Text(text = "Цена: ${cat.price}") // Здесь должна быть логика получения цены
+                    Text(text = "Цена: ${cat.price}", maxLines = 1, overflow = TextOverflow.Ellipsis) // Ограничиваем количество строк и используем многоточие
                 }
             }
         }

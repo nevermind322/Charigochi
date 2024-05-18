@@ -24,6 +24,7 @@ import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.screeens.AboutUs
 import com.example.charigochi.screeens.ChooseCat
+import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
 import com.example.charigochi.screeens.Settings
 import com.example.charigochi.screeens.SomethingWentWrong
@@ -132,11 +133,15 @@ fun MainNavHost(appUiState: AppUiState.Success) {
             })
         ) { backStackEntry ->
             val catId = backStackEntry.arguments?.getInt(TAMAGOCHI_SCREEN_ARGUMENT) ?: 0
-            TamagochiScreen(cat = appUiState.cats.first { it.id == catId }, vm = hiltViewModel())
+            TamagochiScreen(
+                cat = appUiState.cats.first { it.id == catId },
+                vm = hiltViewModel(),
+                onDonateClick = {navController.navigate(DONATE_SCREEN_ROUTE)}
+            )
         }
 
         composable(route = DONATE_SCREEN_ROUTE) {
-
+            Donate(fonds = listOf())
         }
     }
 }

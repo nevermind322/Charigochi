@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -39,11 +40,17 @@ fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modi
 @Composable
 fun Settings() {
     val context = LocalContext.current
+    val colorScheme = MaterialTheme.colorScheme
+    val primaryColor = colorScheme.primary
+    val onPrimaryColor = colorScheme.onPrimary
+    val backgroundColor = colorScheme.background
+    val onBackgroundColor = colorScheme.onBackground
 
     // Сохранение состояния для звука, языка и темы
     var isSoundOn by rememberSaveable { mutableStateOf(true) }
     var currentLanguage by rememberSaveable { mutableStateOf("ru-RU") }
     var currentTheme by rememberSaveable { mutableStateOf("default") }
+
 
     Column(
         modifier = Modifier
@@ -54,7 +61,7 @@ fun Settings() {
     ) {
         Text(
             text = "ЗВУК",
-            style = Typography.titleLarge.copy(),
+            style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -102,7 +109,7 @@ fun Settings() {
 
         Text(
             text = context.getString(R.string.language_setting),
-            style = Typography.titleLarge.copy(),
+            style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -154,7 +161,7 @@ fun Settings() {
 
         Text(
             text = "ТЕМА",
-            style = Typography.titleLarge.copy(),
+            style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
