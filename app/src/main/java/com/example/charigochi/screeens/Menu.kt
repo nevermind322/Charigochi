@@ -35,14 +35,20 @@ import androidx.compose.material3.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import com.example.charigochi.ui.theme.DarkColorScheme
+import com.example.charigochi.vm.MenuViewModel
 
 @Composable
 fun MenuScreen(
     success: AppUiState.Success,
     onSettingsClick: () -> Unit,
     onCatChooseClick: () -> Unit,
-    onAboutUsClick: () -> Unit
+    onAboutUsClick: () -> Unit,
+    vm: MenuViewModel
 ) {
+
+    if (!success.rewardClaimedToday)
+        RewardDialog(onConfirm = {})
+
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
     val primaryColor = colorScheme.primary
@@ -150,6 +156,7 @@ fun MenuScreen(
         }
     }
 }
+
 @Composable
 fun RewardDialog(onConfirm: () -> Unit) {
     val context = LocalContext.current
