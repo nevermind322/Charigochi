@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.progressSemantics
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -67,11 +71,11 @@ fun ImageProgressBar(
 
 @Composable
 fun CatHungerProgress(catHunger: Float) {
-    val imagePainter = painterResource(id = R.drawable.sadcat) // Измените на ваш ресурс изображения
+    val imagePainter = painterResource(id = R.drawable.fish) // Измените на ваш ресурс изображения
 
     ImageProgressBar(
         progress = catHunger / 100,
-        maxImages = 10, // Количество изображений для полного прогресса
+        maxImages = 6, // Количество изображений для полного прогресса
         imagePainter = imagePainter,
         modifier = Modifier.fillMaxWidth()
     )
@@ -79,11 +83,11 @@ fun CatHungerProgress(catHunger: Float) {
 
 @Composable
 fun CatHappinessProgress(catHappiness: Float) {
-    val imagePainter = painterResource(id = R.drawable.sadcat_bw) // Измените на ваш ресурс изображения
+    val imagePainter = painterResource(id = R.drawable.cat) // Измените на ваш ресурс изображения
 
     ImageProgressBar(
         progress = catHappiness / 100,
-        maxImages = 10, // Количество изображений для полного прогресса
+        maxImages = 6, // Количество изображений для полного прогресса
         imagePainter = imagePainter,
         modifier = Modifier.fillMaxWidth()
     )
@@ -108,43 +112,46 @@ fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick:
         ) {
             Text(text = "Оформить пожертование", fontSize = 18.sp, maxLines = 1)
         }
-
-        Image(
-            painter = painterResource(id = cat.imageRes),
-            contentDescription = null,
-            modifier = Modifier.clickable {
-                Toast.makeText(
-                    context,
-                    "Clicked",
-                    Toast.LENGTH_SHORT
-                ).show()
+        Box {
+            Image(
+                painter = painterResource(id = cat.imageRes),
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    Toast.makeText(
+                        context,
+                        "Clicked",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(4.dp)
+            ) {
+                Button(
+                    onClick = {
+                        vm.care(cat)
+                        Toast.makeText(context, "Hello from Bottom Button 2", Toast.LENGTH_SHORT).show()
+                    },
+                    modifier = Modifier
+                        .size(100.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.fishn1),
+                        contentDescription = null,
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
             }
-        )
-
-        Button(
-            onClick = {
-                vm.care(cat)
-                Toast.makeText(context, "Hello from Bottom Button 2", Toast.LENGTH_SHORT).show()
-            },
-            modifier = Modifier.height(80.dp)
-        ) {
-            Text(text = "Bottom Button 2")
         }
 
         // Прогресс для счастья
-        Text(
-            text = "Счастье",
-            style = MaterialTheme.typography.displaySmall,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+
         CatHappinessProgress(catHappiness = cat.happiness.toFloat())
 
         // Прогресс для голода
-        Text(
-            text = "Голод",
-            style = MaterialTheme.typography.displaySmall,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+
         CatHungerProgress(catHunger = cat.bellyful.toFloat())
     }
 }

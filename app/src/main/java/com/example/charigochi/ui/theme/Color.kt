@@ -27,7 +27,7 @@ val LightLavender = Color(0xFFE1BEE7) // Pastel Lavender
 
 val DarkYellow = Color(0xFFCBC693) // Less saturated pastel yellow
 val DarkPeach = Color(0xFFC8A989) // Less saturated pastel peach
-val DarkPink = Color(0xFFA8898B) // Less saturated pastel pink
+val DarkPink = Color(0xFFBD8DAD) // Less saturated pastel pink
 val DarkTeal = Color(0xFF7B8D89) // Less saturated pastel teal
 val DarkBlue = Color(0xFF7B9CA8) // Less saturated pastel blue
 val DarkLavender = Color(0xFF968998) // Less saturated pastel lavender
