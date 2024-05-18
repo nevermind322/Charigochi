@@ -12,14 +12,14 @@ class UpdateAndGetCatsUsecase @Inject constructor(private val catRepo: CatRepo) 
 
     suspend operator fun invoke(): List<CatEntity> {
         val cats = catRepo.getAll()
-        Log.d("CATS", cats.toString())
         val newCats = mutableListOf<CatEntity>()
         val date = Date()
         if (cats.isEmpty()) {
             for (cat in CATS_INIT) {
                 newCats.add(
                     if (!cat.unlocked) cat else cat.copy(
-                        lastBellyfulUpdate = date, happinessLastUpdate = date
+                        lastBellyfulUpdate = date,
+                        happinessLastUpdate = date
                     )
                 )
             }

@@ -21,7 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
+import com.example.charigochi.data.Theme
 import com.example.charigochi.ui.theme.Typography
+import com.example.charigochi.vm.SettingsViewModel
 
 @Composable
 fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modifier) {
@@ -38,7 +40,7 @@ fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modi
 }
 
 @Composable
-fun Settings() {
+fun Settings(vm: SettingsViewModel) {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
     val primaryColor = colorScheme.primary
@@ -48,7 +50,6 @@ fun Settings() {
 
     // Сохранение состояния для звука, языка и темы
     var isSoundOn by rememberSaveable { mutableStateOf(true) }
-    var currentLanguage by rememberSaveable { mutableStateOf("ru-RU") }
     var currentTheme by rememberSaveable { mutableStateOf("default") }
 
 
@@ -76,7 +77,7 @@ fun Settings() {
                 onClick = {
                     isSoundOn = true
                     Toast.makeText(context, "Звук включен", Toast.LENGTH_SHORT).show()
-                    // Добавьте здесь логику включения звука
+                    vm.changeSound(true)
                 },
                 enabled = !isSoundOn,
                 modifier = Modifier
@@ -92,7 +93,7 @@ fun Settings() {
                 onClick = {
                     isSoundOn = false
                     Toast.makeText(context, "Звук выключен", Toast.LENGTH_SHORT).show()
-                    // Добавьте здесь логику выключения звука
+                    vm.changeSound(false)
                 },
                 enabled = isSoundOn,
                 modifier = Modifier
@@ -129,7 +130,6 @@ fun Settings() {
                 ImageButton(
                     painter = painterResource(R.drawable.flafrus),
                     onClick = {
-                        currentLanguage = "ru-RU"
                         Toast.makeText(context, "Выбран русский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
                         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -147,7 +147,6 @@ fun Settings() {
                 ImageButton(
                     painter = painterResource(R.drawable.flageng),
                     onClick = {
-                        currentLanguage = "en-US"
                         Toast.makeText(context, "Выбран английский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-US")
                         AppCompatDelegate.setApplicationLocales(appLocale)
@@ -176,7 +175,7 @@ fun Settings() {
                 onClick = {
                     currentTheme = "dark"
                     Toast.makeText(context, "Темная тема", Toast.LENGTH_SHORT).show()
-                    // Добавьте здесь логику включения темной темы
+                    vm.changeTheme(Theme.Dark)
                 },
                 enabled = currentTheme != "dark",
                 modifier = Modifier
@@ -190,9 +189,8 @@ fun Settings() {
 
             Button(
                 onClick = {
-                    currentTheme = "light"
                     Toast.makeText(context, "Светлая тема", Toast.LENGTH_SHORT).show()
-                    // Добавьте здесь логику включения светлой темы
+                    vm.changeTheme(Theme.Light)
                 },
                 enabled = currentTheme != "light",
                 modifier = Modifier
@@ -208,7 +206,7 @@ fun Settings() {
                 onClick = {
                     currentTheme = "default"
                     Toast.makeText(context, "Тема по умолчанию", Toast.LENGTH_SHORT).show()
-                    // Добавьте здесь логику включения темы по умолчанию
+                    vm.changeTheme(Theme.Default)
                 },
                 enabled = currentTheme != "default",
                 modifier = Modifier
@@ -217,7 +215,11 @@ fun Settings() {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "По умолчанию", style = Typography.labelSmall, textAlign = TextAlign.Center)
+                Text(
+                    text = "По умолчанию",
+                    style = Typography.labelSmall,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }
