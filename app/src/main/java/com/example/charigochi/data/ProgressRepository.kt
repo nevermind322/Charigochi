@@ -19,7 +19,6 @@ class ProgressRepository @Inject constructor(@ProgressDataStore private val data
 
     val moneyFlow = dataStore.data.map { it[moneyKey] ?: 500 }
 
-
     suspend fun addMoney(money: Int) {
         dataStore.edit {
             val cur = it[moneyKey] ?: 500
@@ -35,7 +34,7 @@ class ProgressRepository @Inject constructor(@ProgressDataStore private val data
     }
 
     suspend fun getStreak() =
-        dataStore.data.map { it[currentStreakKey] ?: -1 }.first()
+        dataStore.data.map { it[currentStreakKey] ?: 1 }.first()
 
     suspend fun updateStreak(newStreak: Int) {
         dataStore.edit {
@@ -57,7 +56,8 @@ class ProgressRepository @Inject constructor(@ProgressDataStore private val data
 
 
     suspend fun getLastRewardClaim() =
-        dataStore.data.map { it[lastRewardClaimKey] ?: Date().time }.first()
+        dataStore.data.map { it[lastRewardClaimKey] ?: (Date().time - 1000L * 60 * 60 * 24) }
+            .first()
 
     suspend fun updateLastRewardClaim(date: Date) {
         dataStore.edit {
