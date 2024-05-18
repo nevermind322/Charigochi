@@ -18,10 +18,18 @@ class ProgressRepository @Inject constructor(private val dataStore: DataStore<Pr
 
     val moneyFlow = dataStore.data.map { it[moneyKey] ?: 500 }
 
+
     suspend fun addMoney(money: Int) {
         dataStore.edit {
-            val cur = it[moneyKey] ?: 0
+            val cur = it[moneyKey] ?: 500
             it[moneyKey] = cur + money
+        }
+    }
+
+    suspend fun spendMoney(money: Int) {
+        dataStore.edit {
+            val cur = it[moneyKey] ?: 500
+            it[moneyKey] = cur - money
         }
     }
 

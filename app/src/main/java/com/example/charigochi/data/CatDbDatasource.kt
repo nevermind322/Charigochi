@@ -8,6 +8,8 @@ import javax.inject.Inject
 
 class CatDbDatasource @Inject constructor(private val catDAO: CatDAO) {
 
+    suspend fun getById(id: Int) = withContext(Dispatchers.IO) { catDAO.getById(id) }
+
     suspend fun getAll() = withContext(Dispatchers.IO) { catDAO.getAll() }
 
     suspend fun updateCat(catEntity: CatEntity) =

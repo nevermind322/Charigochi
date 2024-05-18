@@ -7,6 +7,8 @@ class CatRepo @Inject constructor(private val catDbDatasource: CatDbDatasource) 
 
     suspend fun getAll() = catDbDatasource.getAll()
 
+    suspend fun getById(id: Int) = catDbDatasource.getById(id)
+
     suspend fun updateCat(catEntity: CatEntity) =
         catDbDatasource.updateCat(catEntity)
 

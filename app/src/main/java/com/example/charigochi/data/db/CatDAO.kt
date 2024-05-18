@@ -12,6 +12,9 @@ interface CatDAO {
     @Update
     suspend fun updateCat(cat: CatEntity)
 
+    @Query("SELECT * FROM CATS where cats.id=:id")
+    suspend fun getById(id : Int) : CatEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCat(cat: CatEntity)
 
