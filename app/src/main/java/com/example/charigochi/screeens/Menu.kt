@@ -151,20 +151,20 @@ fun MenuScreen(
     }
 }
 @Composable
-fun RewardDialog(onConfirm: () -> Unit, ) {
+fun RewardDialog(onConfirm: () -> Unit) {
     val context = LocalContext.current
 
     AlertDialog(
         onDismissRequest = onConfirm,
         title = {
-            Text(text =  "yes", style = Typography.bodyMedium)
+            Text(text = "yes", style = Typography.bodyMedium)
         },
         text = {
-            Text(text =  "yes", style = Typography.bodyMedium)
+            Text(text = "yes", style = Typography.bodyMedium)
         },
         confirmButton = {
             Button(onClick = onConfirm) {
-                Text(text =  "thank u", style = Typography.bodyMedium)
+                Text(text = "thank u", style = Typography.bodyMedium)
             }
         }
     )

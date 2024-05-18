@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.charigochi.data.CatFactLanguage
 import com.example.charigochi.data.CatFactRepository
+import com.example.charigochi.data.LocaleProvider
 import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.UpdateAndGetCatsUsecase
@@ -23,7 +24,8 @@ import javax.inject.Inject
 class AppViewModel @Inject constructor(
     private val usecase: UpdateAndGetCatsUsecase,
     private val progressRepo: ProgressRepository,
-    private val catFactRepository: CatFactRepository
+    private val catFactRepository: CatFactRepository,
+    private val localeProvider: LocaleProvider
 ) : ViewModel() {
 
     val state = MutableStateFlow<AppUiState>(AppUiState.Loading)
@@ -35,10 +37,11 @@ class AppViewModel @Inject constructor(
                 val streak = getStreak()
                 val lastRewardClaim = progressRepo.getLastRewardClaim()
                 val todayRewardClaimed = twoDatesIsSameDayOfYear(Date(lastRewardClaim), Date())
+                val locale = localeProvider.getCatFactLanguage()
                 val fact = try {
-                    catFactRepository.getFact(CatFactLanguage.RUSSIAN)
+                    catFactRepository.getFact(locale)
                 } catch (e: Exception) {
-                    CatFactLanguage.RUSSIAN.default
+                    locale.default
                 }
                 AppUiState.Success(cats, money, streak, todayRewardClaimed, fact)
             } catch (e: Exception) {
