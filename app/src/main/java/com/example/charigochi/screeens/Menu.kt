@@ -23,13 +23,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.R
-import com.example.charigochi.model.CatFactLanguage
+import com.example.charigochi.model.Language
 import com.example.charigochi.model.Progress
+import com.example.charigochi.model.getLanguageForLocale
 import com.example.charigochi.ui.theme.DarkColorScheme
 import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.utils.streakToMoney
@@ -158,16 +160,16 @@ fun MenuScreen(
     }
 }
 
-fun getRightWord(days: Int, language: CatFactLanguage): String {
+fun getRightWord(days: Int, language: Language): String {
     return when (language) {
-        CatFactLanguage.ENGLISH -> {
+        Language.ENGLISH -> {
             when (days) {
                 1 -> "day"
                 else -> "days"
             }
         }
 
-        CatFactLanguage.RUSSIAN -> {
+        Language.RUSSIAN -> {
             val preLastNum = days % 100 / 10
             if (preLastNum == 1)
                 "дней"
@@ -188,18 +190,14 @@ fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
     val context = LocalContext.current
     val moneyBonus = streakToMoney[streak] ?: 1000
     val onConfirm2 = { onConfirm(moneyBonus) }
-
+    val language = getLanguageForLocale(LocalConfiguration.current.locales[0])
+    val daysWord = getRightWord(days = streak, language = language)
 
     AlertDialog(onDismissRequest = onConfirm2, title = {
         Text(text = "Поздравляем!", style = Typography.bodyMedium)
     }, text = {
         Text(
-            text = "Вы заходили $streak ${
-                getRightWord(
-                    days = streak,
-                    language = CatFactLanguage.RUSSIAN
-                )
-            } и получили $moneyBonus $!", style = Typography.bodyMedium
+            text = "Вы заходили $streak $daysWord подряд и получили $moneyBonus $!", style = Typography.bodyMedium
         )
     }, confirmButton = {
         Button(onClick = onConfirm2) {

@@ -2,10 +2,11 @@ package com.example.charigochi.model
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 
-enum class CatFactLanguage(val code: String, val default: String) {
+enum class Language(val code: String, val default: String) {
     RUSSIAN("rus", "котики милые)"), ENGLISH("eng", "kitties are cute)")
 }
 
@@ -16,9 +17,11 @@ class LocaleProvider @Inject constructor(@ApplicationContext private val context
     val currentLocale
         get() = context.resources.configuration.locales[0]
 
-    fun getCatFactLanguage() = when (currentLocale.toString()) {
-        "ru_RU" -> CatFactLanguage.RUSSIAN
-        else -> CatFactLanguage.ENGLISH
-    }
+    fun getCatFactLanguage() = getLanguageForLocale(currentLocale)
+}
 
+
+fun getLanguageForLocale(locale : Locale) = when (locale.toString()) {
+    "ru_RU" -> Language.RUSSIAN
+    else -> Language.ENGLISH
 }
