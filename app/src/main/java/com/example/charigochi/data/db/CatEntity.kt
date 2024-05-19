@@ -34,11 +34,11 @@ class Converters {
 // TODO: поменять кошьку на картинки, когда они будут
 val CatEntity.imageRes: Int
     get() = when (id) {
-        0 -> R.drawable.koshka
-        1 -> R.drawable.koshka
+        0 -> R.drawable.gav
+        1 -> R.drawable.puss_in_boots
         2 -> R.drawable.leopold
-        3 -> R.drawable.koshka
-        4 -> R.drawable.koshka
+        3 -> R.drawable.vasiliy
+        4 -> R.drawable.mary
         5 -> R.drawable.silvestr
         else -> R.drawable.koshka
     }
