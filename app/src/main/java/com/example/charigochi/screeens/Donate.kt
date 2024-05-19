@@ -19,8 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.charigochi.R
 import com.example.charigochi.model.Fund
 
 import com.example.charigochi.ui.theme.Typography
@@ -42,7 +44,7 @@ fun Donate(fonds: List<Fund>) {
         verticalArrangement = Arrangement.Top
     ) {
         Text(
-            text = "Выберите организацию для пожертвования:",
+            text = stringResource(R.string.choose_fund_text),
             style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,8 +61,6 @@ fun Donate(fonds: List<Fund>) {
         ) {
             for (fond in fonds)
                 FondButton(fond = fond)
-
-
         }
     }
 }
@@ -80,6 +80,6 @@ fun FondButton(fond: Fund) {
             .height(80.dp)
             .clip(RoundedCornerShape(16.dp))
     ) {
-        Text(text = "Фонд ${fond.name}", style = Typography.titleLarge)
+        Text(text = fond.name, style = Typography.titleLarge)
     }
 }

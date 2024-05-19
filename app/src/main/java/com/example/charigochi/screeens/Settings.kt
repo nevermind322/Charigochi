@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
@@ -72,7 +73,7 @@ fun Settings(vm: SettingsViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "ЗВУК",
+            text = stringResource(R.string.sound_setting),
             style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -96,7 +97,7 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "Вкл", style = Typography.labelSmall)
+                Text(text = stringResource(R.string.sound_on_setting), style = Typography.labelSmall)
             }
 
             Button(
@@ -111,7 +112,7 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "Выкл", style = Typography.labelSmall)
+                Text(text = stringResource(R.string.sound_off_setting), style = Typography.labelSmall)
             }
         }
 
@@ -166,7 +167,7 @@ fun Settings(vm: SettingsViewModel) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "ТЕМА",
+            text = stringResource(R.string.theme_setting),
             style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -190,7 +191,7 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "Темная", style = Typography.labelSmall)
+                Text(text = stringResource(R.string.dark_theme_setting), style = Typography.labelSmall)
             }
 
             Button(
@@ -205,7 +206,7 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = "Светлая", style = Typography.labelSmall)
+                Text(text = stringResource(R.string.light_theme_setting), style = Typography.labelSmall)
             }
 
             Button(
@@ -221,7 +222,7 @@ fun Settings(vm: SettingsViewModel) {
                     .clip(RoundedCornerShape(8.dp))
             ) {
                 Text(
-                    text = "По умолчанию",
+                    text = stringResource(R.string.default_theme_setting),
                     style = Typography.labelSmall,
                     textAlign = TextAlign.Center
                 )

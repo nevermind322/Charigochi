@@ -26,15 +26,17 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.charigochi.R
 import com.example.charigochi.model.Language
 import com.example.charigochi.model.Progress
 import com.example.charigochi.model.getLanguageForLocale
+import com.example.charigochi.model.getStreakRewardText
 import com.example.charigochi.ui.theme.DarkColorScheme
 import com.example.charigochi.ui.theme.Typography
-import com.example.charigochi.utils.streakToMoney
+import com.example.charigochi.utils.getMoneyBonusForStreak
 import com.example.charigochi.vm.MenuViewModel
 
 @Composable
@@ -80,7 +82,7 @@ fun MenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Баланс: ${progress.money} $",
+                text = stringResource(R.string.balance_text, progress.money),
                 style = Typography.titleLarge.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -114,7 +116,8 @@ fun MenuScreen(
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
                     Text(
-                        text = "ИГРАТЬ", style = Typography.titleLarge.copy(color = onPrimaryColor)
+                        text = stringResource(R.string.play_button),
+                        style = Typography.titleLarge.copy(color = onPrimaryColor)
                     )
                 }
 
@@ -128,7 +131,7 @@ fun MenuScreen(
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
                     Text(
-                        text = "Настройки",
+                        text = stringResource(R.string.settings_button),
                         style = Typography.titleLarge.copy(color = onPrimaryColor)
                     )
                 }
@@ -143,7 +146,7 @@ fun MenuScreen(
                     colors = ButtonDefaults.buttonColors(primaryColor)
                 ) {
                     Text(
-                        text = "Об авторах",
+                        text = stringResource(R.string.about_authors_button),
                         style = Typography.titleLarge.copy(color = onPrimaryColor)
                     )
                 }
@@ -160,48 +163,26 @@ fun MenuScreen(
     }
 }
 
-fun getRightWord(days: Int, language: Language): String {
-    return when (language) {
-        Language.ENGLISH -> {
-            when (days) {
-                1 -> "day"
-                else -> "days"
-            }
-        }
-
-        Language.RUSSIAN -> {
-            val preLastNum = days % 100 / 10
-            if (preLastNum == 1)
-                "дней"
-            else {
-                val lastNum = days % 10
-                when (lastNum) {
-                    1 -> "день"
-                    in 2..4 -> "дня"
-                    else -> "дней"
-                }
-            }
-        }
-    }
-}
-
 @Composable
 fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
     val context = LocalContext.current
-    val moneyBonus = streakToMoney[streak] ?: 1000
+    val moneyBonus = getMoneyBonusForStreak(streak)
     val onConfirm2 = { onConfirm(moneyBonus) }
     val language = getLanguageForLocale(LocalConfiguration.current.locales[0])
-    val daysWord = getRightWord(days = streak, language = language)
 
     AlertDialog(onDismissRequest = onConfirm2, title = {
-        Text(text = "Поздравляем!", style = Typography.bodyMedium)
+        Text(text = stringResource(R.string.reward_congrat), style = Typography.bodyMedium)
     }, text = {
         Text(
-            text = "Вы заходили $streak $daysWord подряд и получили $moneyBonus $!", style = Typography.bodyMedium
+            text = getStreakRewardText(language, streak),
+            style = Typography.bodyMedium
         )
     }, confirmButton = {
         Button(onClick = onConfirm2) {
-            Text(text = "Спасибо!", style = Typography.bodyMedium)
+            Text(
+                text = stringResource(R.string.reward_claimed_button),
+                style = Typography.bodyMedium
+            )
         }
     })
 }

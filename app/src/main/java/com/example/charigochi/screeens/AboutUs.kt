@@ -16,12 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Typography
 
 @Composable
@@ -42,7 +44,7 @@ fun AboutUs()  {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Цель нашего приложения",
+            text = stringResource(R.string.app_goal_text),
             style = Typography.titleLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -50,7 +52,7 @@ fun AboutUs()  {
             textAlign = TextAlign.Center
         )
         Text(
-            text = "Мы столкнулись с необходимостью привлечения внимания пользователей к поддержке фондов и приютов, которые заботятся о бездомных животных.",
+            text = stringResource(R.string.about_us_text1),
             style = Typography.bodyLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -58,7 +60,7 @@ fun AboutUs()  {
             textAlign = TextAlign.Justify
         )
         Text(
-            text = "Задачей было познакомить Вас с конкретными фондами и замотивировать оформить разовый донат в игровой форме.",
+            text = stringResource(R.string.about_us_text2),
             style = Typography.bodyLarge.copy(color = onBackgroundColor),
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,7 +75,7 @@ fun AboutUs()  {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Разработчики:",
+                text = stringResource(R.string.developers_text),
                 style = Typography.titleLarge.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -84,7 +86,7 @@ fun AboutUs()  {
             val developer2Link = "https://github.com/h8watermelon"
 
             val annotatedText1 = buildAnnotatedString {
-                append("Филонов Алексей ")
+                append(stringResource(R.string.developer1_name))
                 pushStringAnnotation(tag = "URL", annotation = developer1Link)
                 withStyle(style = SpanStyle(color = onBackgroundColor, fontSize = 18.sp)) {
                     append(developer1Link)
@@ -93,7 +95,7 @@ fun AboutUs()  {
             }
 
             val annotatedText2 = buildAnnotatedString {
-                append("Павлова Татьяна ")
+                append(stringResource(R.string.develope2_name))
                 pushStringAnnotation(tag = "URL", annotation = developer2Link)
                 withStyle(style = SpanStyle(color = onBackgroundColor, fontSize = 18.sp)) {
                     append(developer2Link)

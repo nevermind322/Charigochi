@@ -79,7 +79,7 @@ fun ChooseCat(
                 verticalArrangement = Arrangement.Top
             ) {
                 Text(
-                    text = "${money} $",
+                    text = "$money $",
                     style = Typography.titleLarge.copy(color = onBackgroundColor),
                     modifier = Modifier
                         .width(80.dp)

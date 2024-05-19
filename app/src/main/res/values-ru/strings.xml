@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="language_setting">Язык</string>
+    <string name="play_button">ИГРАТЬ</string>
+    <string name="settings_button">Настройки</string>
+    <string name="about_authors_button">Об авторах</string>
+    <string name="reward_claimed_button">Спасибо!</string>
+    <string name="reward_congrat">Поздравляем!</string>
+    <string name="balance_text">Баланс: %1$s $</string>
+    <string name="dark_theme_setting">Темная</string>
+    <string name="sound_setting">ЗВУК</string>
+    <string name="sound_on_setting">Вкл</string>
+    <string name="sound_off_setting">Выкл</string>
+    <string name="theme_setting">ТЕМА</string>
+    <string name="light_theme_setting">Светлая</string>
+    <string name="default_theme_setting">По умолчанию</string>
+    <string name="choose_fund_text">Выберите организацию для пожертвования:</string>
+    <string name="something_went_wrong_text">Что-то пошло не так...</string>
+    <string name="retry_button">Попытаться опять</string>
+    <string name="pointless_retrying">Это бесполезно, перезапустите приложение</string>
+    <string name="make_a_donation_text">Оформить пожертование</string>
+    <string name="about_us_text2">Задачей было познакомить Вас с конкретными фондами и замотивировать оформить разовый донат в игровой форме.</string>
+    <string name="app_goal_text">Цель нашего приложения</string>
+    <string name="about_us_text1">Мы столкнулись с необходимостью привлечения внимания пользователей к поддержке фондов и приютов, которые заботятся о бездомных животных.</string>
+    <string name="developers_text">Разработчики:</string>
+    <string name="developer1_name">"Филонов Алексей "</string>
+    <string name="develope2_name">"Павлова Татьяна "</string>
 </resources>

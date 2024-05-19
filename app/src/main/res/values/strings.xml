@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name" translatable="false">Charigochi</string>
     <string name="language_setting">Language</string>
+    <string name="play_button">PLAY</string>
+    <string name="settings_button">Settings</string>
+    <string name="about_authors_button">About Authors</string>
+    <string name="reward_claimed_button">Thank u!</string>
+    <string name="reward_congrat">Congratulations!</string>
+    <string name="balance_text">Balance: %1$s $</string>
+    <string name="dark_theme_setting">Dark</string>
+    <string name="sound_setting">Sound</string>
+    <string name="sound_on_setting">On</string>
+    <string name="sound_off_setting">Off</string>
+    <string name="theme_setting">Theme</string>
+    <string name="light_theme_setting">Light</string>
+    <string name="default_theme_setting">Default</string>
+    <string name="choose_fund_text">Choose organisation to donate to</string>
+    <string name="something_went_wrong_text">Something went wrong...</string>
+    <string name="retry_button">Retry</string>
+    <string name="make_a_donation_text">Make a donation</string>
+    <string name="pointless_retrying">It\'s doesn\'t help, relaunch the app</string>
+    <string name="app_goal_text">Purpose of  the application</string>
+    <string name="about_us_text1">We are faced with the need to attract the attention of users to support funds and shelters that care for homeless animals.</string>
+    <string name="about_us_text2">The goal was to introduce you to specific funds and motivate you to make a one-time donation in a playful way.</string>
+    <string name="developers_text">Developers</string>
+    <string name="developer1_name">Filonov Alexey</string>
+    <string name="develope2_name">Pavlova Tatyana</string>
 </resources>

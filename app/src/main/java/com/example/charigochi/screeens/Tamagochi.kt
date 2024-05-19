@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.charigochi.R
@@ -100,7 +101,7 @@ fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick:
                 .padding(horizontal = 50.dp)
                 .height(70.dp)
         ) {
-            Text(text = "Оформить пожертование", fontSize = 18.sp, maxLines = 1)
+            Text(text = stringResource(R.string.make_a_donation_text), fontSize = 18.sp, maxLines = 1)
         }
         Box {
             Image(

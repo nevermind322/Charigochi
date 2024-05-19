@@ -18,7 +18,7 @@ val Context.settingsDataStore by preferencesDataStore(name = "settings")
 val isSoundOnKey = booleanPreferencesKey("isSoundOn")
 val currentThemeKey = stringPreferencesKey("theme")
 
-val streakToMoney = mapOf(
+private val streakToMoney = mapOf(
     1 to 100,
     2 to 150,
     3 to 200,
@@ -27,3 +27,5 @@ val streakToMoney = mapOf(
     6 to 350,
     7 to 500
 )
+
+fun getMoneyBonusForStreak(streak: Int) = streakToMoney[streak] ?: 500
