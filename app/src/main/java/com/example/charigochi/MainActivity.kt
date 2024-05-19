@@ -13,8 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,6 +30,7 @@ import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.model.Progress
 import com.example.charigochi.model.funds
+import com.example.charigochi.model.getLanguageForLocale
 import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
@@ -115,7 +120,6 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
         }
 
         is AppUiState.Error -> {
-            // Экран "что-то пошло не так", я его напишу, но нужна картинка грустного котика
             SomethingWentWrong(onRetry = { vm.init() })
         }
 
@@ -128,8 +132,16 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
                     isRewardClaimedToday = isRewardClaimedToday
                 )
             }.collectAsState(initial = success.progress)
+
+            var fact by remember { mutableStateOf(success.catFact) }
+            val locale = LocalConfiguration.current.locales[0]
+
+            LaunchedEffect(key1 = locale) {
+                fact = vm.getFact(getLanguageForLocale(locale))
+            }
+
             val cats by vm.catsFlow.collectAsState(initial = success.cats)
-            MainNavHost(progress = progress, cats = cats, catFact = success.catFact)
+            MainNavHost(progress = progress, cats = cats, catFact = fact)
         }
     }
 

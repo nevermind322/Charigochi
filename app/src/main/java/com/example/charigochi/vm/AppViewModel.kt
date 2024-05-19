@@ -9,6 +9,7 @@ import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.LoadProgressUsecase
 import com.example.charigochi.domain.UpdateCatsUsecase
+import com.example.charigochi.model.Language
 import com.example.charigochi.model.LocaleProvider
 import com.example.charigochi.model.Progress
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +41,7 @@ class AppViewModel @Inject constructor(
                 val cats = updateCatsUsecase()
                 val progress = loadProgressUsecase()
                 val catFactLanguage = localeProvider.getCatFactLanguage()
-                val fact = catFactRepository.getFact(catFactLanguage)
+                val fact = getFact(catFactLanguage)
                 AppUiState.Success(cats, progress, fact)
             } catch (e: Exception) {
                 Log.d("appUIState", e.message ?: "null")
@@ -49,6 +50,7 @@ class AppViewModel @Inject constructor(
         }
     }
 
+    suspend fun getFact(language: Language) = catFactRepository.getFact(language)
 
 }
 
