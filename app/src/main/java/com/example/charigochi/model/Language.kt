@@ -57,6 +57,6 @@ fun getStreakRewardText(language: Language, streak: Int): String {
     val moneyBonus = getMoneyBonusForStreak(streak)
     return when(language) {
         Language.RUSSIAN -> "Вы заходили $streak $daysWord подряд и получили $moneyBonus $!"
-        Language.ENGLISH -> TODO()
+        Language.ENGLISH -> "You've been logged in for $streak $daysWord and got $moneyBonus $"
     }
 }
