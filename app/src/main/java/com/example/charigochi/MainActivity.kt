@@ -3,23 +3,19 @@ package com.example.charigochi
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,9 +24,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
-import com.example.charigochi.data.funds
+import com.example.charigochi.model.Progress
+import com.example.charigochi.model.funds
 import com.example.charigochi.screeens.ChooseCat
 import com.example.charigochi.screeens.Donate
 import com.example.charigochi.screeens.MenuScreen
@@ -40,15 +36,13 @@ import com.example.charigochi.screeens.TamagochiScreen
 import com.example.charigochi.screens.AboutUs
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.ui.theme.DarkPink
-import com.example.charigochi.utils.moneyKey
-import com.example.charigochi.utils.progressDataStore
 import com.example.charigochi.vm.AppUiState
 import com.example.charigochi.vm.AppViewModel
 import com.example.charigochi.vm.MainActivityViewModel
 import com.example.charigochi.vm.SettingsState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import java.nio.file.WatchEvent
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -66,8 +60,7 @@ class MainActivity : AppCompatActivity() {
 
             when (settingsState) {
                 SettingsState.Loading -> Unit
-                is SettingsState.Success -> {
-                    /*
+                is SettingsState.Success -> {/*
                     if ((settingsState as SettingsState.Success).isSoundOn)
                         mediaPlayer?.setVolume(1f, 1f)
                     else
@@ -115,12 +108,10 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
         AppUiState.Loading -> {
             // Экран загрузки
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator(
-                    color = DarkPink,
-                    modifier = Modifier.size(100.dp) // Установите желаемый размер
+                    color = DarkPink, modifier = Modifier.size(100.dp) // Установите желаемый размер
                 )
             }
         }
@@ -131,7 +122,16 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
         }
 
         is AppUiState.Success -> {
-            MainNavHost(state as AppUiState.Success)
+            val success = state as AppUiState.Success
+            val progress by vm.moneyFlow.combine(vm.isRewardClaimedFlow) { money, isRewardClaimedToday ->
+                Progress(
+                    streak = success.progress.streak,
+                    money = money,
+                    isRewardClaimedToday = isRewardClaimedToday
+                )
+            }.collectAsState(initial = success.progress)
+            val cats by vm.catsFlow.collectAsState(initial = success.cats)
+            MainNavHost(progress = progress, cats = cats, catFact = success.catFact)
         }
     }
 
@@ -147,14 +147,8 @@ const val DONATE_SCREEN_ROUTE = "donate"
 
 
 @Composable
-fun MainNavHost(appUiState: AppUiState.Success) {
+fun MainNavHost(progress: Progress, cats: List<CatEntity>, catFact: String) {
     val navController = rememberNavController()
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = appUiState.streak) {
-        Toast.makeText(context, "Streak : ${appUiState.streak}", Toast.LENGTH_SHORT).show()
-    }
-
     NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
 
         composable(route = MENU_SCREEN_ROUTE) {
@@ -162,15 +156,16 @@ fun MainNavHost(appUiState: AppUiState.Success) {
                 onSettingsClick = { navController.navigate(SETTINGS_SCREEN_ROUTE) },
                 onCatChooseClick = { navController.navigate(CHOOSE_CAT_SCREEN_ROUTE) },
                 onAboutUsClick = { navController.navigate(ABOUT_AUTHORS_SCREEN_ROUTE) },
-                success = appUiState,
+                progress = progress,
+                catFact = catFact,
                 vm = hiltViewModel()
             )
         }
 
         composable(route = CHOOSE_CAT_SCREEN_ROUTE) {
             ChooseCat(
-                catsInit = appUiState.cats,
-                moneyInit = appUiState.money,
+                cats = cats,
+                money = progress.money,
                 onTamagochiClick = { id -> navController.navigate("$TAMAGOCHI_SCREEN_ROUTE/$id") },
                 vm = hiltViewModel()
             )
@@ -189,7 +184,7 @@ fun MainNavHost(appUiState: AppUiState.Success) {
             arguments = listOf(navArgument(TAMAGOCHI_SCREEN_ARGUMENT) { type = NavType.IntType })
         ) { backStackEntry ->
             val catId = backStackEntry.arguments?.getInt(TAMAGOCHI_SCREEN_ARGUMENT) ?: 0
-            TamagochiScreen(cat = appUiState.cats.first { it.id == catId },
+            TamagochiScreen(cat = cats.first { it.id == catId },
                 vm = hiltViewModel(),
                 onDonateClick = { navController.navigate(DONATE_SCREEN_ROUTE) })
         }

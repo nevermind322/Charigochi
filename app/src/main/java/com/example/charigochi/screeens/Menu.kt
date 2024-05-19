@@ -2,7 +2,6 @@ package com.example.charigochi.screeens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,33 +27,31 @@ import androidx.compose.ui.unit.dp
 import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.vm.AppUiState
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import com.example.charigochi.data.CatFactLanguage
+import com.example.charigochi.model.CatFactLanguage
+import com.example.charigochi.model.Progress
 import com.example.charigochi.ui.theme.DarkColorScheme
 import com.example.charigochi.utils.streakToMoney
 import com.example.charigochi.vm.MenuViewModel
 
 @Composable
 fun MenuScreen(
-    success: AppUiState.Success,
+    catFact: String,
+    progress: Progress,
     onSettingsClick: () -> Unit,
     onCatChooseClick: () -> Unit,
     onAboutUsClick: () -> Unit,
     vm: MenuViewModel
 ) {
 
-    val money by vm.moneyFlow.collectAsState(initial = success.money)
-    val isRewardClaimedToday by vm.isRewardClaimedFlow.collectAsState(initial = success.rewardClaimedToday)
+    val isRewardClaimedToday = progress.isRewardClaimedToday
 
     if (!isRewardClaimedToday) RewardDialog(
-        streak = success.streak,
+        streak = progress.streak,
         onConfirm = { vm.claimReward(it) })
 
 
@@ -84,7 +81,7 @@ fun MenuScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Баланс: ${money} $",
+                text = "Баланс: ${progress.money} $",
                 style = Typography.titleLarge.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -153,7 +150,7 @@ fun MenuScreen(
                 }
             }
             Text(
-                text = success.catFact,
+                text = catFact,
                 style = Typography.bodyMedium.copy(color = onBackgroundColor),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -163,16 +160,18 @@ fun MenuScreen(
         }
     }
 }
-fun getRightWord(days: Int, language : CatFactLanguage):String{
-    return when (language){
+
+fun getRightWord(days: Int, language: CatFactLanguage): String {
+    return when (language) {
         CatFactLanguage.ENGLISH -> {
-            when(days){
-                1-> "day"
+            when (days) {
+                1 -> "day"
                 else -> "days"
             }
         }
+
         CatFactLanguage.RUSSIAN -> {
-            val preLastNum = days %100/10
+            val preLastNum = days % 100 / 10
             if (preLastNum == 1)
                 "дней"
             else {
@@ -197,7 +196,14 @@ fun RewardDialog(streak: Int, onConfirm: (Int) -> Unit) {
     AlertDialog(onDismissRequest = onConfirm2, title = {
         Text(text = "Поздравляем!", style = Typography.bodyMedium)
     }, text = {
-        Text(text = "Вы заходили $streak ${getRightWord(days = streak, language = CatFactLanguage.RUSSIAN)} и получили $moneyBonus $!", style = Typography.bodyMedium)
+        Text(
+            text = "Вы заходили $streak ${
+                getRightWord(
+                    days = streak,
+                    language = CatFactLanguage.RUSSIAN
+                )
+            } и получили $moneyBonus $!", style = Typography.bodyMedium
+        )
     }, confirmButton = {
         Button(onClick = onConfirm2) {
             Text(text = "Спасибо!", style = Typography.bodyMedium)

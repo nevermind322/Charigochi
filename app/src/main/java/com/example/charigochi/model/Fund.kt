@@ -1,4 +1,4 @@
-package com.example.charigochi.data
+package com.example.charigochi.model
 
 data class Fund(val name: String, val url: String) {
 }

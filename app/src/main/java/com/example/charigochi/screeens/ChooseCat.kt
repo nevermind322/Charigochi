@@ -43,13 +43,11 @@ import com.example.charigochi.vm.ChooseCatViewModel
 
 @Composable
 fun ChooseCat(
-    catsInit: List<CatEntity>,
-    moneyInit: Int,
+    cats: List<CatEntity>,
+    money: Int,
     onTamagochiClick: (Int) -> Unit,
     vm: ChooseCatViewModel
 ) {
-    val cats by vm.allCatsFlow.collectAsState(initial = catsInit)
-    val money by vm.moneyFlow.collectAsState(initial = moneyInit)
 
     ChooseCat(cats = cats,
         money = money,
@@ -187,7 +185,10 @@ fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: Buy
                         .height(40.dp), // Устанавливаем фиксированную высоту кнопки
                     enabled = buyButtonState.enabled
                 ) {
-                    Text(text = "${cat.price} $",  style = Typography.titleSmall.copy()) // Ограничиваем количество строк и используем многоточие
+                    Text(
+                        text = "${cat.price} $",
+                        style = Typography.titleSmall.copy()
+                    ) // Ограничиваем количество строк и используем многоточие
                 }
             }
         }

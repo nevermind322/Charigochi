@@ -1,49 +1,49 @@
 package com.example.charigochi.vm
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.charigochi.data.CatFactLanguage
 import com.example.charigochi.data.CatFactRepository
-import com.example.charigochi.data.LocaleProvider
+import com.example.charigochi.data.CatRepo
+import com.example.charigochi.model.LocaleProvider
 import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.CatEntity
-import com.example.charigochi.domain.UpdateAndGetCatsUsecase
-import com.example.charigochi.utils.isYesterdayFor
-import com.example.charigochi.utils.twoDatesIsSameDayOfYear
+import com.example.charigochi.domain.LoadProgressUsecase
+import com.example.charigochi.domain.UpdateCatsUsecase
+import com.example.charigochi.model.Progress
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val usecase: UpdateAndGetCatsUsecase,
-    private val progressRepo: ProgressRepository,
+    catRepo: CatRepo,
+    progressRepo: ProgressRepository,
+    private val updateCatsUsecase: UpdateCatsUsecase,
+    private val loadProgressUsecase: LoadProgressUsecase,
     private val catFactRepository: CatFactRepository,
     private val localeProvider: LocaleProvider
 ) : ViewModel() {
 
     val state = MutableStateFlow<AppUiState>(AppUiState.Loading)
+
+    val catsFlow = catRepo.allFlow
+    val moneyFlow = progressRepo.moneyFlow
+    val isRewardClaimedFlow = progressRepo.isRewardClaimedFlow
+
     fun init() {
         viewModelScope.launch {
             state.value = try {
-                val cats = usecase()
-                val money = progressRepo.moneyFlow.first()
-                val streak = getStreak()
-                val lastRewardClaim = progressRepo.getLastRewardClaim()
-                val todayRewardClaimed = twoDatesIsSameDayOfYear(Date(lastRewardClaim), Date())
+                val cats = updateCatsUsecase()
+                val progress = loadProgressUsecase()
                 val locale = localeProvider.getCatFactLanguage()
                 val fact = try {
                     catFactRepository.getFact(locale)
                 } catch (e: Exception) {
                     locale.default
                 }
-                AppUiState.Success(cats, money, streak, todayRewardClaimed, fact)
+                AppUiState.Success(cats, progress, fact)
             } catch (e: Exception) {
                 Log.d("appUIState", e.message ?: "null")
                 AppUiState.Error(e)
@@ -51,31 +51,14 @@ class AppViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getStreak(): Int {
-        val lastLogin = progressRepo.getLastLogin()
-        val today = Date()
-        progressRepo.updateLastLogin(today)
-        val prevLoginDate = Date(lastLogin)
-        return if (prevLoginDate isYesterdayFor today) {
-            val streak = progressRepo.getStreak()
-            progressRepo.updateStreak(streak + 1)
-            streak
-        } else if (twoDatesIsSameDayOfYear(today, prevLoginDate)) {
-            progressRepo.getStreak()
-        } else {
-            progressRepo.resetStreak()
-            1
-        }
-    }
+
 }
 
 sealed class AppUiState {
     data object Loading : AppUiState()
     data class Success(
         val cats: List<CatEntity>,
-        val money: Int,
-        val streak: Int,
-        val rewardClaimedToday: Boolean,
+        val progress: Progress,
         val catFact: String
     ) : AppUiState()
 

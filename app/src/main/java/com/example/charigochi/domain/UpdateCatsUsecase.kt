@@ -1,6 +1,5 @@
 package com.example.charigochi.domain
 
-import android.util.Log
 import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.db.CATS_INIT
 import com.example.charigochi.data.db.CatEntity
@@ -8,7 +7,7 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class UpdateAndGetCatsUsecase @Inject constructor(private val catRepo: CatRepo) {
+class UpdateCatsUsecase @Inject constructor(private val catRepo: CatRepo) {
 
     suspend operator fun invoke(): List<CatEntity> {
         val cats = catRepo.getAll()

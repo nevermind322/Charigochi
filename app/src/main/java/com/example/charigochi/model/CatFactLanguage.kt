@@ -1,4 +1,4 @@
-package com.example.charigochi.data
+package com.example.charigochi.model
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext

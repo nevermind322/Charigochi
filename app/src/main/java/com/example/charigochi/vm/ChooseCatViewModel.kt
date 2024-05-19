@@ -10,15 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChooseCatViewModel @Inject constructor(
-    private val buyCatUsecase: BuyCatUsecase,
-    catRepo: CatRepo,
-    progressRepository: ProgressRepository
-) : ViewModel() {
-
-    val allCatsFlow = catRepo.allFlow
-    val moneyFlow = progressRepository.moneyFlow
-
+class ChooseCatViewModel @Inject constructor(private val buyCatUsecase: BuyCatUsecase) :
+    ViewModel() {
     fun buyCat(catId: Int) {
         viewModelScope.launch {
             buyCatUsecase.buyCat(catId)
