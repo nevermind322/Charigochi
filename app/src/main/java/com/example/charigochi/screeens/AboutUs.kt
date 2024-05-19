@@ -90,7 +90,7 @@ fun AboutUs() {
             val developer1Link = "https://github.com/nevermind322"
             val developer2Link = "https://github.com/h8watermelon"
             val linkStyle = SpanStyle(
-                color = Color.Cyan,
+                color = tertiary,
                 fontSize = 18.sp,
                 textDecoration = TextDecoration.Underline
             )
