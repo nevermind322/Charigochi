@@ -98,7 +98,8 @@ fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick:
             onClick = onDonateClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 50.dp)
+                .padding(horizontal = 32
+                    .dp)
                 .height(70.dp)
         ) {
             Text(text = stringResource(R.string.make_a_donation_text), fontSize = 18.sp, maxLines = 1)
