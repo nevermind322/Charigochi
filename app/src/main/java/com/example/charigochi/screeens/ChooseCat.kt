@@ -1,6 +1,5 @@
 package com.example.charigochi.screeens
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -174,7 +173,6 @@ fun CatCard(cat: CatEntity, onTamagochiClick: (Int) -> Unit, buyButtonState: Buy
                     onClick = {
                         // Действие при нажатии на кнопку цены
                         buyButtonState.onClick(cat.id)
-                        Toast.makeText(context, "Цена: ${cat.price}", Toast.LENGTH_SHORT).show()
                     },
                     modifier = Modifier
                         .fillMaxWidth()

@@ -1,6 +1,5 @@
 package com.example.charigochi.screeens
 
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -88,7 +87,6 @@ fun Settings(vm: SettingsViewModel) {
             Button(
                 onClick = {
                     isSoundOn = true
-                    Toast.makeText(context, "Звук включен", Toast.LENGTH_SHORT).show()
                     vm.changeSound(true)
                 },
                 enabled = !isSoundOn,
@@ -104,7 +102,6 @@ fun Settings(vm: SettingsViewModel) {
             Button(
                 onClick = {
                     isSoundOn = false
-                    Toast.makeText(context, "Звук выключен", Toast.LENGTH_SHORT).show()
                     vm.changeSound(false)
                 },
                 enabled = isSoundOn,
@@ -142,7 +139,6 @@ fun Settings(vm: SettingsViewModel) {
                 ImageButton(
                     painter = painterResource(R.drawable.flafrus),
                     onClick = {
-                        Toast.makeText(context, "Выбран русский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("ru-RU")
                         AppCompatDelegate.setApplicationLocales(appLocale)
                     },
@@ -159,7 +155,6 @@ fun Settings(vm: SettingsViewModel) {
                 ImageButton(
                     painter = painterResource(R.drawable.flageng),
                     onClick = {
-                        Toast.makeText(context, "Выбран английский язык", Toast.LENGTH_SHORT).show()
                         val appLocale: LocaleListCompat = LocaleListCompat.forLanguageTags("en-US")
                         AppCompatDelegate.setApplicationLocales(appLocale)
                     },
@@ -186,7 +181,6 @@ fun Settings(vm: SettingsViewModel) {
             Button(
                 onClick = {
                     currentTheme = "dark"
-                    Toast.makeText(context, "Темная тема", Toast.LENGTH_SHORT).show()
                     vm.changeTheme(Theme.Dark)
                 },
                 enabled = currentTheme != "dark",
@@ -202,7 +196,6 @@ fun Settings(vm: SettingsViewModel) {
             Button(
                 onClick = {
                     currentTheme = "light"
-                    Toast.makeText(context, "Светлая тема", Toast.LENGTH_SHORT).show()
                     vm.changeTheme(Theme.Light)
                 },
                 enabled = currentTheme != "light",
@@ -218,7 +211,6 @@ fun Settings(vm: SettingsViewModel) {
             Button(
                 onClick = {
                     currentTheme = "default"
-                    Toast.makeText(context, "Тема по умолчанию", Toast.LENGTH_SHORT).show()
                     vm.changeTheme(Theme.Default)
                 },
                 enabled = currentTheme != "default",
