@@ -92,8 +92,9 @@ fun CatHappinessProgress(catHappiness: Float) {
         modifier = Modifier.fillMaxWidth()
     )
 }
+
 @Composable
-fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick: () -> Unit){
+fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick: () -> Unit) {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
 
@@ -116,13 +117,7 @@ fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick:
             Image(
                 painter = painterResource(id = cat.imageRes),
                 contentDescription = null,
-                modifier = Modifier.clickable {
-                    Toast.makeText(
-                        context,
-                        "Clicked",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                modifier = Modifier.clickable { vm.care(cat) }
             )
             Box(
                 modifier = Modifier
@@ -131,8 +126,9 @@ fun TamagochiScreen(cat: CatEntity, vm: TamagochiScreenViewModel, onDonateClick:
             ) {
                 Button(
                     onClick = {
-                        vm.care(cat)
-                        Toast.makeText(context, "Hello from Bottom Button 2", Toast.LENGTH_SHORT).show()
+                        vm.feed(cat)
+                        Toast.makeText(context, "Hello from Bottom Button 2", Toast.LENGTH_SHORT)
+                            .show()
                     },
                     modifier = Modifier
                         .size(100.dp)
