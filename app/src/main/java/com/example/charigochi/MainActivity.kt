@@ -2,7 +2,6 @@ package com.example.charigochi
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +41,6 @@ import com.example.charigochi.vm.MainActivityViewModel
 import com.example.charigochi.vm.SettingsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

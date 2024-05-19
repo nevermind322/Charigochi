@@ -2,8 +2,6 @@ package com.example.charigochi.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.charigochi.data.CatRepo
-import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.domain.BuyCatUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -7,9 +7,7 @@ import com.example.charigochi.data.SettingsRepository
 import com.example.charigochi.data.Theme
 import com.example.charigochi.data.getTheme
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject

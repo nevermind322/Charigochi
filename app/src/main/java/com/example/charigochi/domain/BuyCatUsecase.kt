@@ -3,7 +3,6 @@ package com.example.charigochi.domain
 import com.example.charigochi.data.CatRepo
 import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.price
-import kotlinx.coroutines.flow.first
 import java.util.Date
 import javax.inject.Inject
 

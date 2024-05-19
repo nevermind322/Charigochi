@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.charigochi.data.CatFactRepository
 import com.example.charigochi.data.CatRepo
-import com.example.charigochi.model.LocaleProvider
 import com.example.charigochi.data.ProgressRepository
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.domain.LoadProgressUsecase
 import com.example.charigochi.domain.UpdateCatsUsecase
+import com.example.charigochi.model.LocaleProvider
 import com.example.charigochi.model.Progress
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
