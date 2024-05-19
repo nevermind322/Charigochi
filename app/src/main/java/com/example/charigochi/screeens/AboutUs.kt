@@ -15,11 +15,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,7 +29,7 @@ import com.example.charigochi.R
 import com.example.charigochi.ui.theme.Typography
 
 @Composable
-fun AboutUs()  {
+fun AboutUs() {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
     val primaryColor = colorScheme.primary
@@ -82,27 +84,32 @@ fun AboutUs()  {
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
+            val developer1 = stringResource(R.string.developer1_name)
+            val developer2 = stringResource(R.string.develope2_name)
             val developer1Link = "https://github.com/nevermind322"
             val developer2Link = "https://github.com/h8watermelon"
+            val linkStyle = SpanStyle(
+                color = Color.Cyan,
+                fontSize = 18.sp,
+                textDecoration = TextDecoration.Underline
+            )
 
             val annotatedText1 = buildAnnotatedString {
-                append(stringResource(R.string.developer1_name))
                 pushStringAnnotation(tag = "URL", annotation = developer1Link)
-                withStyle(style = SpanStyle(color = onBackgroundColor, fontSize = 18.sp)) {
+                withStyle(style = linkStyle) {
                     append(developer1Link)
                 }
                 pop()
             }
 
             val annotatedText2 = buildAnnotatedString {
-                append(stringResource(R.string.develope2_name))
                 pushStringAnnotation(tag = "URL", annotation = developer2Link)
-                withStyle(style = SpanStyle(color = onBackgroundColor, fontSize = 18.sp)) {
+                withStyle(style = linkStyle) {
                     append(developer2Link)
                 }
                 pop()
             }
-
+            Text(developer1, style = Typography.bodyLarge.copy(color = onBackgroundColor))
             ClickableText(
                 text = annotatedText1,
                 style = Typography.bodyLarge.copy(color = onBackgroundColor),
@@ -117,6 +124,7 @@ fun AboutUs()  {
                         }
                 }
             )
+            Text(text = developer2, style = Typography.bodyLarge.copy(color = onBackgroundColor),)
             ClickableText(
                 text = annotatedText2,
                 style = Typography.bodyLarge.copy(color = onBackgroundColor),

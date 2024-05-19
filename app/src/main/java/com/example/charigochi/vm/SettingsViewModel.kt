@@ -3,7 +3,7 @@ package com.example.charigochi.vm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.charigochi.data.SettingsRepository
-import com.example.charigochi.data.Theme
+import com.example.charigochi.model.Theme
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

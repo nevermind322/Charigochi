@@ -18,7 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import com.example.charigochi.R
-import com.example.charigochi.data.Theme
+import com.example.charigochi.model.Theme
 
 /*private val DarkColorScheme = darkColorScheme(
     primary = Pink80,

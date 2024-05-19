@@ -33,7 +33,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
-import com.example.charigochi.data.Theme
+import com.example.charigochi.model.Settings
+import com.example.charigochi.model.Theme
 import com.example.charigochi.ui.theme.Typography
 import com.example.charigochi.vm.SettingsViewModel
 
@@ -52,7 +53,7 @@ fun ImageButton(painter: Painter, onClick: () -> Unit, modifier: Modifier = Modi
 }
 
 @Composable
-fun Settings(vm: SettingsViewModel) {
+fun Settings(settings: Settings, vm: SettingsViewModel) {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
     val primaryColor = colorScheme.primary
@@ -61,8 +62,8 @@ fun Settings(vm: SettingsViewModel) {
     val onBackgroundColor = colorScheme.onBackground
 
     // Сохранение состояния для звука, языка и темы
-    var isSoundOn by rememberSaveable { mutableStateOf(true) }
-    var currentTheme by rememberSaveable { mutableStateOf(Theme.Default) }
+    var isSoundOn by rememberSaveable { mutableStateOf(settings.isSoundOn) }
+    var currentTheme by rememberSaveable { mutableStateOf(settings.theme) }
 
 
     Column(
@@ -97,7 +98,10 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = stringResource(R.string.sound_on_setting), style = Typography.labelSmall)
+                Text(
+                    text = stringResource(R.string.sound_on_setting),
+                    style = Typography.labelSmall
+                )
             }
 
             Button(
@@ -112,7 +116,10 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = stringResource(R.string.sound_off_setting), style = Typography.labelSmall)
+                Text(
+                    text = stringResource(R.string.sound_off_setting),
+                    style = Typography.labelSmall
+                )
             }
         }
 
@@ -191,7 +198,10 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = stringResource(R.string.dark_theme_setting), style = Typography.labelSmall)
+                Text(
+                    text = stringResource(R.string.dark_theme_setting),
+                    style = Typography.labelSmall
+                )
             }
 
             Button(
@@ -206,7 +216,10 @@ fun Settings(vm: SettingsViewModel) {
                     .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
             ) {
-                Text(text = stringResource(R.string.light_theme_setting), style = Typography.labelSmall)
+                Text(
+                    text = stringResource(R.string.light_theme_setting),
+                    style = Typography.labelSmall
+                )
             }
 
             Button(

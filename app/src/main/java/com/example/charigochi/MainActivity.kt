@@ -29,6 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.charigochi.data.db.CatEntity
 import com.example.charigochi.model.Progress
+import com.example.charigochi.model.Settings
 import com.example.charigochi.model.funds
 import com.example.charigochi.model.getLanguageForLocale
 import com.example.charigochi.screeens.ChooseCat
@@ -68,9 +69,9 @@ class MainActivity : AppCompatActivity() {
                         mediaPlayer?.setVolume(1f, 1f)
                     else
                         mediaPlayer?.setVolume(0f, 0f)*/
-
-                    CharigochiTheme(theme = (settingsState as SettingsState.Success).theme) {
-                        CharigochiApp()
+                    val settings = (settingsState as SettingsState.Success).settings
+                    CharigochiTheme(theme = settings.theme) {
+                        CharigochiApp(settings)
                         //TamagochiScreen(cat = CATS_INIT[0], vm = hiltViewModel())
                     }
 
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 
 @Composable
-fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
+fun CharigochiApp(settings: Settings, vm: AppViewModel = hiltViewModel()) {
 
     val state by vm.state.collectAsState()
     val context = LocalContext.current
@@ -141,7 +142,7 @@ fun CharigochiApp(vm: AppViewModel = hiltViewModel()) {
             }
 
             val cats by vm.catsFlow.collectAsState(initial = success.cats)
-            MainNavHost(progress = progress, cats = cats, catFact = fact)
+            MainNavHost(settings = settings, progress = progress, cats = cats, catFact = fact)
         }
     }
 
@@ -157,7 +158,7 @@ const val DONATE_SCREEN_ROUTE = "donate"
 
 
 @Composable
-fun MainNavHost(progress: Progress, cats: List<CatEntity>, catFact: String) {
+fun MainNavHost(settings: Settings, progress: Progress, cats: List<CatEntity>, catFact: String) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = MENU_SCREEN_ROUTE) {
 
@@ -182,7 +183,7 @@ fun MainNavHost(progress: Progress, cats: List<CatEntity>, catFact: String) {
         }
 
         composable(route = SETTINGS_SCREEN_ROUTE) {
-            Settings(vm = hiltViewModel())
+            Settings(settings = settings, vm = hiltViewModel())
         }
 
         composable(route = ABOUT_AUTHORS_SCREEN_ROUTE) {
