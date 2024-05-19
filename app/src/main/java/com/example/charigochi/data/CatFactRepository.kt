@@ -10,7 +10,11 @@ import javax.inject.Inject
 class CatFactRepository @Inject constructor() {
     private val catFactService: CatFactService = service
     suspend fun getFact(language: Language) = withContext(Dispatchers.IO) {
-        catFactService.getFacts(language.code).data[0]
+        try {
+            catFactService.getFacts(language.code).data[0]
+        } catch (e: Exception) {
+            language.default
+        }
     }
 }
 

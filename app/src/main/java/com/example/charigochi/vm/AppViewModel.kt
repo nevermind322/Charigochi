@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+// TODO: язык факта не меняется 
 @HiltViewModel
 class AppViewModel @Inject constructor(
     catRepo: CatRepo,
@@ -37,12 +39,8 @@ class AppViewModel @Inject constructor(
             state.value = try {
                 val cats = updateCatsUsecase()
                 val progress = loadProgressUsecase()
-                val locale = localeProvider.getCatFactLanguage()
-                val fact = try {
-                    catFactRepository.getFact(locale)
-                } catch (e: Exception) {
-                    locale.default
-                }
+                val catFactLanguage = localeProvider.getCatFactLanguage()
+                val fact = catFactRepository.getFact(catFactLanguage)
                 AppUiState.Success(cats, progress, fact)
             } catch (e: Exception) {
                 Log.d("appUIState", e.message ?: "null")
