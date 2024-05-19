@@ -34,7 +34,7 @@ class LoadProgressUsecase @Inject constructor(private val repo: ProgressReposito
             repo.getStreak()
         } else {
             repo.resetStreak()
-            0
+            1
         }
     }
 }
