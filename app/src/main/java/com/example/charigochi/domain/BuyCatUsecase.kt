@@ -19,7 +19,9 @@ class BuyCatUsecase @Inject constructor(
             cat.copy(
                 unlocked = true,
                 lastBellyfulUpdate = now,
-                happinessLastUpdate = now
+                happinessLastUpdate = now,
+                bellyful = 100,
+                happiness = 100
             )
         )
         progressRepository.spendMoney(cat.price)
