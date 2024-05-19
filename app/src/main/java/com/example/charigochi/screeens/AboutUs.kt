@@ -1,4 +1,4 @@
-package com.example.charigochi.screens
+package com.example.charigochi.screeens
 
 import android.content.Intent
 import android.net.Uri

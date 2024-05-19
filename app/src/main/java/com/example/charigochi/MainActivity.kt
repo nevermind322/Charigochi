@@ -38,7 +38,7 @@ import com.example.charigochi.screeens.MenuScreen
 import com.example.charigochi.screeens.Settings
 import com.example.charigochi.screeens.SomethingWentWrong
 import com.example.charigochi.screeens.TamagochiScreen
-import com.example.charigochi.screens.AboutUs
+import com.example.charigochi.screeens.AboutUs
 import com.example.charigochi.ui.theme.CharigochiTheme
 import com.example.charigochi.ui.theme.DarkPink
 import com.example.charigochi.vm.AppUiState
