@@ -36,6 +36,7 @@ fun AboutUs() {
     val onPrimaryColor = colorScheme.onPrimary
     val backgroundColor = colorScheme.background
     val onBackgroundColor = colorScheme.onBackground
+    val tertiary = colorScheme.tertiary
 
     Column(
         modifier = Modifier
@@ -112,7 +113,7 @@ fun AboutUs() {
             Text(developer1, style = Typography.bodyLarge.copy(color = onBackgroundColor))
             ClickableText(
                 text = annotatedText1,
-                style = Typography.bodyLarge.copy(color = onBackgroundColor),
+                style = Typography.bodyLarge.copy(color = tertiary),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
@@ -127,7 +128,7 @@ fun AboutUs() {
             Text(text = developer2, style = Typography.bodyLarge.copy(color = onBackgroundColor),)
             ClickableText(
                 text = annotatedText2,
-                style = Typography.bodyLarge.copy(color = onBackgroundColor),
+                style = Typography.bodyLarge.copy(color = tertiary),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
