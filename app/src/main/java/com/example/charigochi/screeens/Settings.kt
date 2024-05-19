@@ -61,7 +61,7 @@ fun Settings(vm: SettingsViewModel) {
 
     // Сохранение состояния для звука, языка и темы
     var isSoundOn by rememberSaveable { mutableStateOf(true) }
-    var currentTheme by rememberSaveable { mutableStateOf("default") }
+    var currentTheme by rememberSaveable { mutableStateOf(Theme.Default) }
 
 
     Column(
@@ -180,10 +180,10 @@ fun Settings(vm: SettingsViewModel) {
         ) {
             Button(
                 onClick = {
-                    currentTheme = "dark"
-                    vm.changeTheme(Theme.Dark)
+                    currentTheme = Theme.Dark
+                    vm.changeTheme(currentTheme)
                 },
-                enabled = currentTheme != "dark",
+                enabled = currentTheme != Theme.Dark,
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 4.dp)
                     .weight(1f)
@@ -195,10 +195,10 @@ fun Settings(vm: SettingsViewModel) {
 
             Button(
                 onClick = {
-                    currentTheme = "light"
-                    vm.changeTheme(Theme.Light)
+                    currentTheme = Theme.Light
+                    vm.changeTheme(currentTheme)
                 },
-                enabled = currentTheme != "light",
+                enabled = currentTheme != Theme.Light,
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 4.dp)
                     .weight(1f)
@@ -210,10 +210,10 @@ fun Settings(vm: SettingsViewModel) {
 
             Button(
                 onClick = {
-                    currentTheme = "default"
-                    vm.changeTheme(Theme.Default)
+                    currentTheme = Theme.Default
+                    vm.changeTheme(currentTheme)
                 },
-                enabled = currentTheme != "default",
+                enabled = currentTheme != Theme.Default,
                 modifier = Modifier
                     .padding(vertical = 8.dp, horizontal = 2.dp)
                     .weight(1f)
