@@ -56,19 +56,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val vm by viewModels<MainActivityViewModel>()
-        //mediaPlayer = MediaPlayer.create(this.applicationContext, R.raw.lol)
-        //mediaPlayer?.isLooping = true
-        //mediaPlayer?.start()
+        mediaPlayer = MediaPlayer.create(this.applicationContext, R.raw.calm)
+        mediaPlayer?.isLooping = true
+        mediaPlayer?.start()
         setContent {
             val settingsState by vm.stateFlow.collectAsState()
 
             when (settingsState) {
                 SettingsState.Loading -> Unit
-                is SettingsState.Success -> {/*
-                    if ((settingsState as SettingsState.Success).isSoundOn)
+                is SettingsState.Success -> {
+                    if ((settingsState as SettingsState.Success).settings.isSoundOn)
                         mediaPlayer?.setVolume(1f, 1f)
                     else
-                        mediaPlayer?.setVolume(0f, 0f)*/
+                        mediaPlayer?.setVolume(0f, 0f)
                     val settings = (settingsState as SettingsState.Success).settings
                     CharigochiTheme(theme = settings.theme) {
                         CharigochiApp(settings)
@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        //mediaPlayer?.pause()
+        mediaPlayer?.pause()
     }
 
     override fun onResume() {
         super.onResume()
-        //mediaPlayer?.start()
+        mediaPlayer?.start()
     }
 
     override fun onDestroy() {
