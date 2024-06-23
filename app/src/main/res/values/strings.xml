@@ -25,4 +25,5 @@
     <string name="developers_text">Developers</string>
     <string name="developer1_name">Filonov Alexey</string>
     <string name="develope2_name">Pavlova Tatyana</string>
+    <string name="select_track">Select track</string>
 </resources>

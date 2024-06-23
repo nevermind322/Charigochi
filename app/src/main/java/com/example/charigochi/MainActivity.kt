@@ -1,6 +1,7 @@
 package com.example.charigochi
 
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -51,14 +52,16 @@ import kotlinx.coroutines.flow.combine
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    var mediaPlayer: MediaPlayer? = null
+    var mediaPlayer: MediaPlayer = MediaPlayer().apply {
+        isLooping = true
+        setOnPreparedListener { it.start() }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val vm by viewModels<MainActivityViewModel>()
-        mediaPlayer = MediaPlayer.create(this.applicationContext, R.raw.calm)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+
+
         setContent {
             val settingsState by vm.stateFlow.collectAsState()
 
@@ -66,29 +69,34 @@ class MainActivity : AppCompatActivity() {
                 SettingsState.Loading -> Unit
                 is SettingsState.Success -> {
                     if ((settingsState as SettingsState.Success).settings.isSoundOn)
-                        mediaPlayer?.setVolume(1f, 1f)
+                        mediaPlayer.setVolume(1f, 1f)
                     else
-                        mediaPlayer?.setVolume(0f, 0f)
+                        mediaPlayer.setVolume(0f, 0f)
+                    val track = (settingsState as SettingsState.Success).settings.track
+                    changeTrack(vm.getMusicUri(track))
                     val settings = (settingsState as SettingsState.Success).settings
                     CharigochiTheme(theme = settings.theme) {
                         CharigochiApp(settings)
-                        //TamagochiScreen(cat = CATS_INIT[0], vm = hiltViewModel())
                     }
-
                 }
             }
         }
     }
 
+    fun changeTrack(musicUri: Uri) {
+        mediaPlayer.reset()
+        mediaPlayer.setDataSource(applicationContext, musicUri)
+        mediaPlayer.prepareAsync()
+    }
 
     override fun onPause() {
         super.onPause()
-        mediaPlayer?.pause()
+        mediaPlayer.pause()
     }
 
     override fun onResume() {
         super.onResume()
-        mediaPlayer?.start()
+        mediaPlayer.start()
     }
 
     override fun onDestroy() {

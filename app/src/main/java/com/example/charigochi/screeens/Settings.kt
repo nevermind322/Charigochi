@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.os.LocaleListCompat
 import com.example.charigochi.R
+import com.example.charigochi.model.Track
 import com.example.charigochi.model.Settings
 import com.example.charigochi.model.Theme
 import com.example.charigochi.ui.theme.Typography
@@ -64,7 +65,7 @@ fun Settings(settings: Settings, vm: SettingsViewModel) {
     // Сохранение состояния для звука, языка и темы
     var isSoundOn by rememberSaveable { mutableStateOf(settings.isSoundOn) }
     var currentTheme by rememberSaveable { mutableStateOf(settings.theme) }
-
+    var currentTrack by rememberSaveable { mutableStateOf(settings.track) }
 
     Column(
         modifier = Modifier
@@ -121,6 +122,32 @@ fun Settings(settings: Settings, vm: SettingsViewModel) {
                     style = Typography.labelSmall
                 )
             }
+        }
+
+        Spacer(modifier = Modifier.size(10.dp))
+        Text(
+            text = stringResource(R.string.select_track),
+            style = Typography.titleLarge.copy(color = onBackgroundColor),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            textAlign = TextAlign.Center
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(
+                8.dp,
+                alignment = Alignment.CenterHorizontally
+            )
+        ) {
+            for ((i, track) in Track.entries.withIndex())
+                Button(onClick = {
+                    vm.changeTrack(track)
+                    currentTrack = track
+                }, enabled = track != currentTrack) {
+                    Text(text = "${i + 1}")
+                }
+
         }
 
         Spacer(modifier = Modifier.height(10.dp))

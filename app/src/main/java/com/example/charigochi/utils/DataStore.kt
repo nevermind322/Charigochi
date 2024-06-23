@@ -17,6 +17,7 @@ val lastRewardClaimKey = longPreferencesKey("lastRewardClaim")
 val Context.settingsDataStore by preferencesDataStore(name = "settings")
 val isSoundOnKey = booleanPreferencesKey("isSoundOn")
 val currentThemeKey = stringPreferencesKey("theme")
+val currentTrack = stringPreferencesKey("track")
 
 private val streakToMoney = mapOf(
     1 to 100,
