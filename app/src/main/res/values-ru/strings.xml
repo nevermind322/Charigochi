@@ -22,8 +22,8 @@
     <string name="about_us_text2">Задачей было познакомить Вас с конкретными фондами и замотивировать оформить разовый донат в игровой форме.</string>
     <string name="app_goal_text">Цель нашего приложения</string>
     <string name="about_us_text1">Мы столкнулись с необходимостью привлечения внимания пользователей к поддержке фондов и приютов, которые заботятся о бездомных животных.</string>
-    <string name="developers_text">Разработчики:</string>
-    <string name="developer1_name">"Филонов Алексей "</string>
-    <string name="develope2_name">"Павлова Татьяна "</string>
+    <string name="developers_text">Авторы:</string>
+    <string name="author_lesha">Филонов Алексей - разработчик, композитор</string>
+    <string name="author_tanya">Павлова Татьяна - креативный директор, художница, разработчица</string>
     <string name="select_track">Выберите трек</string>
 </resources>

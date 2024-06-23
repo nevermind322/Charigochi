@@ -22,8 +22,8 @@
     <string name="app_goal_text">Purpose of  the application</string>
     <string name="about_us_text1">We are faced with the need to attract the attention of users to support funds and shelters that care for homeless animals.</string>
     <string name="about_us_text2">The goal was to introduce you to specific funds and motivate you to make a one-time donation in a playful way.</string>
-    <string name="developers_text">Developers</string>
-    <string name="developer1_name">Filonov Alexey</string>
-    <string name="develope2_name">Pavlova Tatyana</string>
+    <string name="developers_text">Authors:</string>
+    <string name="author_lesha">Filonov Alexey - developer, composer</string>
+    <string name="author_tanya">Pavlova Tatyana - creative director, artist, developer</string>
     <string name="select_track">Select track</string>
 </resources>

@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -85,10 +84,12 @@ fun AboutUs() {
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
-            val developer1 = stringResource(R.string.developer1_name)
-            val developer2 = stringResource(R.string.develope2_name)
-            val developer1Link = "https://github.com/nevermind322"
-            val developer2Link = "https://github.com/h8watermelon"
+            val tanya = stringResource(R.string.author_tanya)
+            val tanyaLink = "https://github.com/h8watermelon"
+
+            val lesha = stringResource(R.string.author_lesha)
+            val leshaLink = "https://github.com/nevermind322"
+
             val linkStyle = SpanStyle(
                 color = tertiary,
                 fontSize = 18.sp,
@@ -96,21 +97,21 @@ fun AboutUs() {
             )
 
             val annotatedText1 = buildAnnotatedString {
-                pushStringAnnotation(tag = "URL", annotation = developer1Link)
+                pushStringAnnotation(tag = "URL", annotation = tanyaLink)
                 withStyle(style = linkStyle) {
-                    append(developer1Link)
+                    append(tanyaLink)
                 }
                 pop()
             }
 
             val annotatedText2 = buildAnnotatedString {
-                pushStringAnnotation(tag = "URL", annotation = developer2Link)
+                pushStringAnnotation(tag = "URL", annotation = leshaLink)
                 withStyle(style = linkStyle) {
-                    append(developer2Link)
+                    append(leshaLink)
                 }
                 pop()
             }
-            Text(developer1, style = Typography.bodyLarge.copy(color = onBackgroundColor))
+            Text(tanya, style = Typography.bodyLarge.copy(color = onBackgroundColor))
             ClickableText(
                 text = annotatedText1,
                 style = Typography.bodyLarge.copy(color = tertiary),
@@ -125,7 +126,7 @@ fun AboutUs() {
                         }
                 }
             )
-            Text(text = developer2, style = Typography.bodyLarge.copy(color = onBackgroundColor),)
+            Text(text = lesha, style = Typography.bodyLarge.copy(color = onBackgroundColor),)
             ClickableText(
                 text = annotatedText2,
                 style = Typography.bodyLarge.copy(color = tertiary),
